@@ -1,0 +1,16 @@
+{
+  "artist": "U2",
+  "album": "Zooropa",
+  "release": "1993-07-05T00:00:00Z",
+  "label": "Island Records",
+  "genre": "Alternative Rock",
+  "tracks": ["Zooropa", "Babyface", "Numb", "Lemon", "Stay (Faraway, So Close!", "Daddy's Gonna Pay for Your Crashed Car", "Some Days Are Better Than Others", "The First Time", "Dirty Day", "The Wanderer"],
+  "tags": {
+    "type": ObjectId,
+    "ref": "Tag"
+  },
+  "cover": {
+    "frontUrl": String,
+    "backUrl": String
+  }
+}

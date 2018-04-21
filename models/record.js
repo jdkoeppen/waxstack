@@ -2,18 +2,13 @@ const mongoose = require('mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const recordSchema =  new mongoose.Schema({
-    artist: {
-        type: String,
-        required: 'Artist name cannot be blank'
-    },
-    album: {
-        type: String,
-        required: 'Album name cannot be blank'
-    },
+    artist: String,
+    album: String,
     release: Date,
     label: String,
     genre: String,
     tracks: [String],
+    format: String,
     tags: {
         type: ObjectId,
         ref: "Tag",
