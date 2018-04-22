@@ -1,3 +1,3 @@
-const recordRoutes = require('./recordRoutes.js');
+const recordRoutes = require('./recordRoutes');
 
 module.exports = {recordRoutes};

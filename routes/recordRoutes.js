@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {Record} = require("../models");
+const {Record} = require("../models/record");
 const helpers = require('../helpers/records');
 const bodyParser = require("body-parser");
 
