@@ -34,6 +34,3 @@ user should be able to link their collection to Spotify, iTunes, etc
 
 ///\\\///\\\
 
-describe routes and user flow and data model
-research .ejs, express template language, Jade (renamed)
- 
