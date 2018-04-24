@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 mongoose.Promise = global.Promise;
 
 const app = express();
-const router = require('./record');
+const {router: collectionRouter} = require('./record');
 const { PORT, DATABASE_URL } = require('./config');
 
 app.use(morgan("common"));
@@ -26,18 +26,17 @@ app.get("/", function(req, res) {
   res.json("I am receiving you.");
 });
 
+app.use('/collection', collectionRouter) 
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });
 });
 
-app.use('/record', router) 
-
 let server;
 
 function runServer() {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, { useMongoClient: true }, err => {
+    mongoose.connect(DATABASE_URL, err => {
       if (err) {
         return reject(err);
       }
