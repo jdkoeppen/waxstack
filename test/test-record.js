@@ -17,7 +17,7 @@ describe('record object', function() {
         const expectedKeys = ['id', 'publishDate'].concat(Object.keys(newRecord));
         
         return chai.request(app) 
-            .post('/')
+            .post('/collection')
             .send(newRecord)
             .then(function(res) {
                 expect(res).to.have.status(201);
@@ -36,7 +36,7 @@ describe('record object', function() {
     it('should error if POST does not contain expected keys', function () {
         const badRequestData = {};
             return chai.request(app)
-            .post('/')
+            .post('/collection')
             .send(badRequestData)
             .catch(function (res) {
                 expect(res).to.have.status(400);
