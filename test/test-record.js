@@ -8,11 +8,11 @@ chai.use(chaiHttp);
 describe('record object', function() {
     it('should POST a record given proper input', function (){
         const newRecord = {
-            artist: "Jamiroquai",
-            album: "Soundstage Landscape",
-            release: "1998",
-            genre: "Funny Hats",
-            label: "Moving Floor Records"
+            "artist": "Jamiroquai",
+            "album": "Soundstage Landscape",
+            "release": "1998",
+            "genre": "Funny Hats",
+            "label": "Moving Floor Records"
     };
         const expectedKeys = ['id', 'publishDate'].concat(Object.keys(newRecord));
         
