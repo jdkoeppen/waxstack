@@ -1,5 +1,7 @@
 const chai = require('chai');
 const expect = chai.expect;
+const chaiHttp = require('chai-http');
+const {app, runServer, closeServer} = require('../server');
 
 describe('record object', function() {
     it('should POST a record given proper input', function (){
