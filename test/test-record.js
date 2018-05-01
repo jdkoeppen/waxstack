@@ -3,6 +3,8 @@ const expect = chai.expect;
 const chaiHttp = require('chai-http');
 const {app, runServer, closeServer} = require('../server');
 
+chai.use(chaiHttp);
+
 describe('record object', function() {
     it('should POST a record given proper input', function (){
         const newRecord = {
