@@ -1,3 +1,6 @@
+const chai = require('chai');
+const expect = chai.expect;
+
 describe('record object', function() {
     it('should POST a record given proper input', function (){
         const newRecord = {
@@ -7,7 +10,7 @@ describe('record object', function() {
             genre: "Funny Hats",
             label: "Moving Floor Records"
     };
-        const expectedKeys = ['id', 'publishDate'].concat(Object.keys(newPost));
+        const expectedKeys = ['id', 'publishDate'].concat(Object.keys(newRecord));
         
         return chai.request(app) 
             .post('/collection')
