@@ -28,7 +28,7 @@ router.post("/", jsonParser, (req, res) => {
   // }
   Record.create(req.body)
     .then(function(record) {
-      res.status(201).json(record);
+      res.status(201).json(record)
     })
     .catch(function(err) {
       res.status(400).send(err.message);
