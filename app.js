@@ -11,15 +11,10 @@ function watchSubmit() {
       data: JSON.stringify(data),
       contentType: "application/json",
       success: function(data) {
-        console.log("success --> data :", data);
+        console.log("success");
       },
-      error: function(xhr, text, err) {
-        console.log("error: ", err);
-        console.log("text: ", text);
-        console.log("xhr: ", xhr);
-        console.log(
-          "there is a problem with your request, please check ajax request"
-        );
+      error: function() {
+        console.log("error");
       }
     });
   });
