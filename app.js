@@ -1,7 +1,7 @@
 function watchSubmit() {
   $("#addRecord").submit(function(event) {
     let data = $(this).serializeArray();
-    let URL = "mongodb://waxstack:waxstack@ds257589.mlab.com:57589/waxstack";
+    let URL = "http://localhost:8080/waxstack";
     event.preventDefault();
     console.log(data);
 
