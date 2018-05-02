@@ -39,10 +39,11 @@ describe('record object', function() {
             .post('/collection')
             .send(badRequestData)
             .catch(function (res) {
-                expect(res).to.have.status(400);
+                `expect(res).to.have.status(400);
             })
         ;
     });
+    done();
 });
 
     it('should GET a record given a valid ID', function () {
