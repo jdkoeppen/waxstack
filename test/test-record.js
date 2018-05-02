@@ -31,7 +31,6 @@ describe('record object', function() {
                 expect(res.body.label).to.equal(newRecord.label);
             })
         ;
-    });
 
     it('should error if POST does not contain expected keys', function () {
         const badRequestData = {};
@@ -43,7 +42,6 @@ describe('record object', function() {
             })
         ;
     });
-    done();
 });
 
     it('should GET a record given a valid ID', function () {
