@@ -1,8 +1,19 @@
 function watchSubmit() {
   $("#addRecord").submit(function(event) {
-    let data = $(this).serializeArray();
-    let URL = "http://localhost:8080/waxstack";
+    let URL = "http://localhost:8080/collection";
     event.preventDefault();
+     var data = {};
+     var input = $(this).serializeArray();
+     $.each(input, function() {
+       if (data[this.name]) {
+         if (!data[this.name].push) {
+           data[this.name] = [data[this.name]];
+         }
+         data[this.name].push(this.value || "");
+       } else {
+         data[this.name] = this.value || "";
+       }
+     });
     console.log(data);
 
     $.ajax({

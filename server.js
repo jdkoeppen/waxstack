@@ -22,6 +22,8 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static("public"));
+
 app.get("/", function(req, res) {
   res.json("I am receiving you.");
 });
