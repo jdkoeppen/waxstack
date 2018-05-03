@@ -4,7 +4,7 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const recordSchema = new mongoose.Schema({
   artist: String,
   album: String,
-  release: Date,
+  release: String,
   label: String,
   genre: String,
   tracks: [String],
