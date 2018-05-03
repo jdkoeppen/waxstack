@@ -35,7 +35,7 @@ describe("record object", function() {
         expect(res.body).to.have.all.keys(expectedKeys);
         expect(res.body.artist).to.equal(newRecord.artist);
         expect(res.body.album).to.equal(newRecord.album);
-        expect(res.body.release).to.equal(Date(newRecord.release));
+        expect(res.body.release).to.equal(newRecord.release);
         expect(res.body.genre).to.equal(newRecord.genre);
         expect(res.body.label).to.equal(newRecord.label);
       });
