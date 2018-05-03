@@ -22,7 +22,7 @@ describe("record object", function() {
       genre: "Funny Hats",
       label: "Moving Floor Records"
     };
-    const expectedKeys = ["_id", "publishDate", "tracks", "_v"].concat(Object.keys(newRecord));
+    const expectedKeys = ["_id", "publishDate", "tracks", "__v"].concat(Object.keys(newRecord));
 
     return chai
       .request(app)
