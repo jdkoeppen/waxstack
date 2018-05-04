@@ -25,20 +25,20 @@ function watchSubmit() {
          data[this.name] = this.value || "";
        }
      });
-    console.log(data);
-
-    $.ajax({
-      url: URL,
-      type: "POST",
-      data: JSON.stringify(data),
-      contentType: "application/json",
-      success: function(data) {
-        console.log("success");
-      },
-      error: function() {
-        console.log("error");
-      }
-    });
+     
+     $.ajax({
+       url: URL,
+       type: "POST",
+       data: JSON.stringify(data),
+       contentType: "application/json",
+       success: function(data) {
+         console.log("success");
+        },
+        error: function() {
+          console.log("error");
+        }
+      });
+      console.log(data);
   });
 }
 

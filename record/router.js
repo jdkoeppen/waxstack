@@ -17,15 +17,15 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", jsonParser, (req, res) => {
-  const requiredFields = ["artist", "album", "release"];
-  for (let i = 0; i < requiredFields.length; i++) {
-    const field = requiredFields[i];
-    if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`;
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
+  // // const requiredFields = ["artist", "album", "release"];
+  // // for (let i = 0; i < requiredFields.length; i++) {
+  // //   const field = requiredFields[i];
+  // //   if (!(field in req.body)) {
+  // //     const message = `Missing \`${field}\` in request body`;
+  // //     console.error(message);
+  //     return res.status(400).send(message);
+  //   }
+  // })
   Record.create(req.body)
     .then(function(record) {
       res.status(201).json(record)
