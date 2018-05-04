@@ -8,44 +8,61 @@
     <title>WaxStack</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
-    
+
 </head>
 
 <body>
 
     <main>
-        <h4>Enter New Album Information</h4>
         <form class="container" id="addRecord">
+            <h4>Enter New Album Information</h4>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="artist">Artist</label>
                     <input type="text" class="form-control" name="artist" placeholder="Artist">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="album">Album</label>
                     <input type="text" class="form-control" name="album" placeholder="Album">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="release">Release Date</label>
-                    <input tye="text" class="form-control" name="release" placeholder="Release Year">
+                <div class="form-group col-md-6">
+                    <label for="release">Release Year</label>
+                    <input type="text" class="form-control" name="release" placeholder="Release Year (xxxx)">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label for="label">Label</label>
                     <input type="text" class="form-control" name="label" placeholder="Record Label">
                 </div>
-                <div class="form-group col-md-4">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="format">Format</label>
+                    <input type="text" class="form-control" name="format" placeholder="Format (CD, Vinyl, etc)">
+                </div>
+                <div class="form-group col-md-6">
                     <label for="genre">Genre</label>
                     <input type="text" class="form-control" name="genre" placeholder="Genre">
                 </div>
             </div>
-            <!-- <label for="tagInput">Tags</label>
-            <input comma separated list -->
-            <button class="btn btn-primary" type="submit">Add Record</button>
+            <div class="row">
+                <div class="form-group form-group-options col-xs-11 col-sm-9 col-md-12">
+                    <div class="input-group input-group-option col-xs-12">
+                        <input type="text" name="option[]" class="form-control" placeholder="Track">
+                        <span class="input-group-addon input-group-addon-remove">
+                        <i class="fas fa-times"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <button class="btn" type="submit">Submit</button>
         </form>
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

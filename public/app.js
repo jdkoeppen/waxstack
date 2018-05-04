@@ -1,9 +1,20 @@
+function enterTracks() {
+  $(document).on('focus', 'div.form-group-options div.input-group-option:last-child input', function () {
+    var sInputGroupHtml = $(this).parent().html();
+    var sInputGroupClasses = $(this).parent().attr('class');
+    $(this).parent().parent().append('<div class="' + sInputGroupClasses + '">' + sInputGroupHtml + '</div>');
+  });
+  $(document).on('click', 'div.form-group-options .input-group-addon-remove', function () {
+    $(this).parent().remove();
+  });
+};
+
 function watchSubmit() {
-  $("#addRecord").submit(function(event) {
+  $("#addRecord").submit(event => {
     let URL = "http://localhost:8080/collection";
     event.preventDefault();
-     var data = {};
-     var input = $(this).serializeArray();
+     let data = {};
+     let input = $(this).serializeArray();
      $.each(input, function() {
        if (data[this.name]) {
          if (!data[this.name].push) {
@@ -32,3 +43,4 @@ function watchSubmit() {
 }
 
 $(watchSubmit);
+$(enterTracks);
