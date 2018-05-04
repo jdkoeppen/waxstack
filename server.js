@@ -24,6 +24,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
