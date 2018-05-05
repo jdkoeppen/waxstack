@@ -10,7 +10,7 @@ function enterTracks() {
 };
 
 function watchSubmit() {
-  $("#addRecord").submit(event => {
+  $("#addRecord").submit(function(event) {
     let URL = "http://localhost:8080/collection";
     event.preventDefault();
      let data = {};
@@ -24,7 +24,8 @@ function watchSubmit() {
        } else {
          data[this.name] = this.value || "";
        }
-     });
+      });
+      console.log(data);
      
      $.ajax({
        url: URL,
@@ -38,7 +39,6 @@ function watchSubmit() {
           console.log("error");
         }
       });
-      console.log(data);
   });
 }
 
