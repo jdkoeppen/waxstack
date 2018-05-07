@@ -10,6 +10,8 @@ mongoose.Promise = global.Promise;
 
 const app = express();
 const {router: collectionRouter} = require('./record');
+const { router: usersRouter } = require('./users');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL } = require('./config');
 
 app.use(morgan("common"));
@@ -24,8 +26,11 @@ app.use(function(req, res, next) {
   next();
 });
 
-// passport.use(localStrategy);
-// passport.use(jwtStrategy);
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
+app.use('/users/', usersRouter);
+app.use('/auth/', authRouter);
 
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
@@ -37,6 +42,7 @@ app.get("/", function(req, res) {
 });
 
 app.use('/collection', collectionRouter) 
+app.use('/auth/login', authRouter)
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });

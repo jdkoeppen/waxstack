@@ -3,17 +3,54 @@
 }
 
 body {
-    margin: 20px;
     background-color: #4F4944;
 }
 
+#loginCard {
+    display: flex;
+    max-width: 540px;
+    border-radius: 5px;
+    background-color: lightgray;
+    margin: 0 auto;
+}
+#signupLink {
+    color:#4F4944;
+    float:right;
+    padding-top: 10px;
+}
+
+#signupLink:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#signupCard {
+    display: none;
+    max-width: 540px;
+    border-radius: 5px;
+    background-color: lightgray;
+    margin: 0 auto;
+}
+
 #addRecord {
+    display: none;
     max-width: 680px;
     margin: 0 auto;
     background-color: lightgray;
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 5px;
+}
+
+.navbar {
+    background-color: lightgray;
+    margin-bottom: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
+}
+
+.card-header {
+    background-color: gold;
 }
 
 label {
@@ -42,8 +79,4 @@ div.input-group-option span.input-group-addon-remove {
 
 div.input-group-option {
     margin-bottom: 3px;
-}
-
-button.btn {
-    background-color: #FFC857;
 }

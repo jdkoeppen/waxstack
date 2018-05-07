@@ -6,16 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>WaxStack</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
-        crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
         crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 
 </head>
 
 <body>
+    <nav class="navbar" style="background-color: lightgray">
+        <a class="navbar-brand">Waxstack</a>
+        <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
     <main>
+
+        <!-- Login Panel -->
+        <div class="card" id="loginCard">
+            <div class="card-header">
+                <h5>Login</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <label for="loginEmail">Email address</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                    </div>
+                </form>
+                <button class="btn btn-primary">Login</button>
+                <small>
+                    <p id="signupLink">Click Here to Create an Account</p>
+                </small>
+            </div>
+        </div>
+
+        <!-- Signup Panel -->
+        <div class="card" id="signupCard">
+            <div class="card-header">
+                <h5>Create an Account</h5>
+            </div>
+            <div class="card-body">
+                <form id="signupForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" class="form-control" id="signupEmail" name="email" placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword1">Password</label>
+                        <input type="password" class="form-control" id="signupPassword1" name="password" placeholder="Password">
+                        <small>*Password Must Be At Least 10 Characters</small>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="signupPassword2">Password</label>
+                        <input type="password" class="form-control" id="signupPassword2" placeholder="Retype Password">
+                    </div> -->
+                    <button type="submit" class="btn btn-primary" >Sign Up</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- New Entry Panel -->
         <form class="container" id="addRecord">
             <h4>Enter New Album Information</h4>
             <div class="form-row">
@@ -55,13 +126,13 @@
                     <div class="input-group input-group-option col-xs-12">
                         <input type="text" name="tracks" class="form-control" placeholder="Track">
                         <span class="input-group-addon input-group-addon-remove">
-                        <i class="fas fa-times"></i>
+                            <i class="fas fa-times"></i>
                         </span>
                     </div>
                 </div>
             </div>
             </div>
-            <button class="btn" type="submit">Submit</button>
+            <button class="btn btn-primary" type="submit">Submit</button>
         </form>
     </main>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

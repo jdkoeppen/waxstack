@@ -9,6 +9,51 @@ function enterTracks() {
   });
 };
 
+function watchLogin() {
+
+}
+
+function watchSignupLink() {
+  $('#signupLink').click(function(event) {
+    $('#loginCard').css('display', 'none');
+    $('#signupCard').css('display', 'flex');
+  })
+}
+
+function watchSignup() {
+  $('#signupForm').submit(function(event) {
+    let URL = "http://localhost:8080/users";
+    event.preventDefault();
+    let data = {};
+    let input = $(this).serializeArray();
+    $.each(input, function () {
+      if (data[this.name]) {
+        if (!data[this.name].push) {
+          data[this.name] = [data[this.name]];
+        }
+        data[this.name].push(this.value || "");
+      } else {
+        data[this.name] = this.value || "";
+      }
+    });
+    console.log(data);
+
+     $.ajax({
+       url: URL,
+       type: "POST",
+       data: JSON.stringify(data),
+       contentType: "application/json",
+       success: function (data) {
+         console.log("success");
+       },
+       error: function () {
+         console.log("error");
+       }
+     });
+  })
+}
+
+
 function watchSubmit() {
   $("#addRecord").submit(function(event) {
     let URL = "http://localhost:8080/collection";
@@ -43,4 +88,6 @@ function watchSubmit() {
 }
 
 $(watchSubmit);
+$(watchSignupLink);
+$(watchSignup);
 $(enterTracks);
