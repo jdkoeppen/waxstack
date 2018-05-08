@@ -144,4 +144,34 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+router.get('/:username', jsonParser, (req, res) => {
+  return User.findOne({username: req.params.username})
+    .then(function(user){
+      res.json(user)
+    })
+    .catch(err => res.status(500).json({
+      message: 'Internal server error'
+    }));
+});
+
+router.put('/:username', jsonParser, (req, res) => {
+  User.findOneAndUpdate({username: req.params.username},{$set:req.body},{new: true})
+    .then(function(user) {
+      res.json(user);
+    })
+    .catch(function(err) {
+      res.status(400).send(err.message);
+    });
+  });
+
+  router.delete("/:username", (req, res) => {
+  User.remove({username: req.params.username})
+    .then(function() {
+      res.status(204).json({ message: "User Deleted" });
+    })
+    .catch(function(err) {
+      res.send(err.message);
+    });
+});
+
 module.exports = {router};
