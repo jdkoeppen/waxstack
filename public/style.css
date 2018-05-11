@@ -6,6 +6,12 @@ body {
     background-color: #4F4944;
 }
 
+.divCentered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #loginCard {
     display: flex;
     max-width: 540px;
@@ -13,9 +19,10 @@ body {
     background-color: lightgray;
     margin: 0 auto;
 }
+
 #signupLink {
-    color:#4F4944;
-    float:right;
+    color: #4F4944;
+    float: right;
     padding-top: 10px;
 }
 
@@ -30,6 +37,24 @@ body {
     border-radius: 5px;
     background-color: lightgray;
     margin: 0 auto;
+}
+
+#signupConf {
+    display: none;
+    align-content: center;
+    max-width: 540px;
+    border-radius: 5px;
+    background-color: lightgray;
+    margin: 0 auto;
+}
+
+#signupConf p {
+    text-align: center;
+    margin: 20px auto;
+}
+
+#signupLogin{
+     margin: 10px auto;
 }
 
 #addRecord {
@@ -67,7 +92,7 @@ div.input-group-option:last-child input.form-control {
 }
 
 div.input-group-option span.input-group-addon-remove {
-    padding:5px 10px 0 10px;
+    padding: 5px 10px 0 10px;
     cursor: pointer;
     border-top: 1px solid #cdd3d9;
     border-right: 1px solid #cdd3d9;

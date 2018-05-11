@@ -7,17 +7,13 @@ const recordSchema = new mongoose.Schema({
   release: String,
   label: String,
   genre: String,
-  tracks: [String],
+  tracks: [{
+      rank: Number,
+      name: String
+    },
+  ],
   format: String,
-  tags: {
-    type: ObjectId,
-    ref: "Tag"
-  }, //storing and querying tags? in search on array?
-  //for db of tags: full object type: object ID (mongoose.Schema.Types.ObjectId)
-  cover: {
-    frontUrl: String,
-    backUrl: String
-  }
+  cover: String
 });
 
 const Record = mongoose.model("Record", recordSchema);

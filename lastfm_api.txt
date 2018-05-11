@@ -1,0 +1,5 @@
+
+Application name	Waxstack
+API key	493953a8e1e2743a17509153a4f85b8e
+Shared secret	c0b424792d74a56e41e10a3e896bd8b1
+Registered to	jdkoeppen
