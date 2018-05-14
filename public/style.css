@@ -4,6 +4,38 @@
 
 body {
     background-color: #4F4944;
+    font-family: 'Work Sans';
+}
+
+.navbar {
+    display: none;
+    background-color: lightgray;
+    margin-bottom: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
+    box-shadow: 0 3px 3px #00000056;
+}
+
+.navbar-brand {
+    font-family: 'Dancing Script';
+    font-size: 2em;
+    text-shadow: 0 2px 2px #00000056;
+    color: #4F4944;
+}
+
+h1 {
+    font-family: 'Dancing Script';
+    font-size: 5em;
+    color: white;
+    text-shadow: 0 3px 3px #00000056;
+}
+
+.logo {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 480px;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 .divCentered {
@@ -12,12 +44,18 @@ body {
     align-items: center;
 }
 
+.card {
+    box-shadow: 0 3px 3px #00000056;
+}
+
 #loginCard {
-    display: flex;
-    max-width: 540px;
+    display: flex; 
+    /* display: none; */
+    max-width: 480px;
     border-radius: 5px;
     background-color: lightgray;
     margin: 0 auto;
+    box-shadow: 0 3px 3px #00000056;
 }
 
 #signupLink {
@@ -33,16 +71,17 @@ body {
 
 #signupCard {
     display: none;
-    max-width: 540px;
+    max-width: 480px;
     border-radius: 5px;
     background-color: lightgray;
     margin: 0 auto;
+    box-shadow: 0 3px 3px #00000056;
 }
 
 #signupConf {
     display: none;
     align-content: center;
-    max-width: 540px;
+    max-width: 480px;
     border-radius: 5px;
     background-color: lightgray;
     margin: 0 auto;
@@ -53,8 +92,25 @@ body {
     margin: 20px auto;
 }
 
-#signupLogin{
-     margin: 10px auto;
+#signupLogin {
+    margin: 10px auto;
+}
+
+#collectionTable {
+    display: flex;
+    /* display: none; */
+    max-width: 960px;
+    margin: 0 auto;
+    background-color: lightgray;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 3px 3px #00000056;
+}
+
+#collectionTable thead {
+    background-color: gold;
+    box-shadow: 0 3px 3px #00000056;
 }
 
 #addRecord {
@@ -62,19 +118,14 @@ body {
     max-width: 680px;
     margin: 0 auto;
     background-color: lightgray;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-radius: 5px;
-}
-
-.navbar {
-    background-color: lightgray;
-    margin-bottom: 50px;
-    padding-left: 150px;
-    padding-right: 150px;
+    box-shadow: 0 3px 3px #00000056;
 }
 
 .card-header {
+    height: 50px;
     background-color: gold;
 }
 

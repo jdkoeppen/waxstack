@@ -29,8 +29,9 @@ app.use(function(req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/users/', usersRouter);
-app.use('/auth/', authRouter);
+app.use('/api/users/', usersRouter);
+app.use('/api/records/', collectionRouter);
+app.use('/api/auth/', authRouter);
 
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
@@ -42,8 +43,7 @@ app.get("/", function(req, res) {
   res.json("I am receiving you.");
 });
 
-app.use('/collection', collectionRouter) 
-app.use('/auth/login', authRouter)
+app.use('/api/collection', jwtAuth, collectionRouter) 
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });

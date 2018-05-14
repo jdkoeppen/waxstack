@@ -8,6 +8,7 @@
     <title>WaxStack</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
         crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Work+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 
@@ -16,15 +17,17 @@
 <body>
     <nav class="navbar" style="background-color: lightgray">
         <a class="navbar-brand">Waxstack</a>
-        <button class="btn btn-link" id="seed1">Seed1</button>
-        <button class="btn btn-link" id="seed2">Seed2</button>
-        <button class="btn btn-link" id="seed3">Seed3</button>
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
         </form>
     </nav>
     <main>
+
+        <div class="container divCentered logo">
+            <h1>Waxstack</h1>
+            <p style="color:white">A Painfully Manual Music Database</p>
+        </div>
 
         <!-- Login Panel -->
         <div class="card" id="loginCard">
@@ -42,7 +45,8 @@
                         <input type="password" class="form-control" id="loginPassword" placeholder="Password">
                     </div>
                 </form>
-                <button class="btn btn-primary">Login</button>
+                <div id="loginMsg"></div>
+                <button class="btn btn-primary" type="submit" id="loginButton">Login</button>
                 <small>
                     <p id="signupLink">Click Here to Create an Account</p>
                 </small>
@@ -102,9 +106,27 @@
             </div>
         </div>
 
+
+        <!-- Collection Table -->
+        <div class="container" id="collectionTable">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Artist</th>
+                        <th scope="col">Album</th>
+                        <th scope="col">Released</th>
+                        <th scope="col">Label</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Format</th>
+                        <button type="link" class="btn btn" id="populate">Populate</button>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
         <!-- New Entry Panel -->
         <form class="container" id="addRecord">
-            <h4>Enter New Album Information</h4>
+            <h4>Add a New Record</h4>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="artist">Artist</label>
@@ -140,6 +162,9 @@
             <div class="row">
                 <div class="form-group form-group-options col-xs-11 col-sm-9 col-md-12">
                     <div class="input-group input-group-option col-xs-12">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">#</span>
+                        </div>
                         <input type="text" name="tracks" class="form-control" placeholder="Track">
                         <span class="input-group-addon input-group-addon-remove">
                             <i class="fas fa-times"></i>
