@@ -23,6 +23,11 @@ body {
     color: #4F4944;
 }
 
+#navInner {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
 h1 {
     font-family: 'Dancing Script';
     font-size: 5em;
@@ -30,12 +35,16 @@ h1 {
     text-shadow: 0 3px 3px #00000056;
 }
 
+h5 {
+    font-family: 'Bubblegum Sans';
+}
+
 .logo {
     display: flex;
     flex-wrap: wrap;
     max-width: 480px;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .divCentered {
@@ -97,8 +106,9 @@ h1 {
 }
 
 #collectionTable {
-    display: flex;
-    /* display: none; */
+    /* display: flex; */
+    display: none;
+    font-size: 12px;
     max-width: 960px;
     margin: 0 auto;
     background-color: lightgray;
@@ -110,7 +120,19 @@ h1 {
 
 #collectionTable thead {
     background-color: gold;
-    box-shadow: 0 3px 3px #00000056;
+    color: #4F4944;
+    font-family: 'Bubblegum Sans';
+    font-size: 1.5em;
+}
+
+#collectionTable th {
+    text-align: left;
+    border: 3px solid lightgrey;
+}
+
+#collectionTable th:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #addRecord {

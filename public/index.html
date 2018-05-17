@@ -8,7 +8,7 @@
     <title>WaxStack</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
         crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Work+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Bubblegum+Sans|Work+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="bootstrap.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
 
@@ -16,15 +16,17 @@
 
 <body>
     <nav class="navbar" style="background-color: lightgray">
-        <a class="navbar-brand">Waxstack</a>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <div class='container' id='navInner'>
+            <a class="navbar-brand">Waxstack</a>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
     </nav>
     <main>
 
-        <div class="container divCentered logo">
+        <div class="container divCentered logo" id="logo">
             <h1>Waxstack</h1>
             <p style="color:white">A Painfully Manual Music Database</p>
         </div>
@@ -35,7 +37,7 @@
                 <h5>Login</h5>
             </div>
             <div class="card-body">
-                <form>
+                <form id="loginForm">
                     <div class="form-group">
                         <label for="loginUser">Username</label>
                         <input type="text" class="form-control" id="loginUser" placeholder="Username">
@@ -44,12 +46,12 @@
                         <label for="loginPassword">Password</label>
                         <input type="password" class="form-control" id="loginPassword" placeholder="Password">
                     </div>
+                    <div id="loginMsg"></div>
+                    <button class="btn btn-primary" type="submit" id="loginButton" value="submit">Login</button>
+                    <small>
+                        <p id="signupLink">Click Here to Create an Account</p>
+                    </small>
                 </form>
-                <div id="loginMsg"></div>
-                <button class="btn btn-primary" type="submit" id="loginButton">Login</button>
-                <small>
-                    <p id="signupLink">Click Here to Create an Account</p>
-                </small>
             </div>
         </div>
 
@@ -66,7 +68,7 @@
             </div>
         </div>
 
-        <!-- Signup Panel -->
+        <!-- Signup Card -->
         <div class="card" id="signupCard">
             <div class="card-header">
                 <h5>Create an Account</h5>
@@ -112,21 +114,25 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Artist</th>
-                        <th scope="col">Album</th>
-                        <th scope="col">Released</th>
-                        <th scope="col">Label</th>
-                        <th scope="col">Genre</th>
-                        <th scope="col">Format</th>
-                        <button type="link" class="btn btn" id="populate">Populate</button>
+                        <th scope="col" id="checkAll">
+                            <input type="checkbox" aria-label="Checkbox for selecting all">
+                        </th>
+                        <th scope="col" id="artistHead">Artist</th>
+                        <th scope="col" id="albumHead">Album</th>
+                        <th scope="col" id="releaseHead">Released</th>
+                        <th scope="col" id="labelHead">Label</th>
+                        <th scope="col" id="genreHead">Genre</th>
+                        <th scope="col" id="formatHead">Format</th>
                     </tr>
                 </thead>
+                <tbody>
+                </tbody>
             </table>
         </div>
 
         <!-- New Entry Panel -->
         <form class="container" id="addRecord">
-            <h4>Add a New Record</h4>
+            <h5>Add a New Record</h5>
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="artist">Artist</label>
