@@ -4,7 +4,7 @@
 
 body {
     background-color: #4F4944;
-    font-family: 'Work Sans';
+    font-family: 'Lato';
 }
 
 .navbar {
@@ -36,7 +36,8 @@ h1 {
 }
 
 h5 {
-    font-family: 'Bubblegum Sans';
+    font-family: 'Lato';
+    font-style: italic;
 }
 
 .logo {
@@ -121,7 +122,7 @@ h5 {
 #collectionTable thead {
     background-color: gold;
     color: #4F4944;
-    font-family: 'Bubblegum Sans';
+    font-family: 'Lato';
     font-size: 1.5em;
 }
 
@@ -133,6 +134,10 @@ h5 {
 #collectionTable th:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+#collectionTable td {
+    font-size: 1.2em;
 }
 
 #addRecord {

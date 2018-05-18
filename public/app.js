@@ -4,6 +4,8 @@ const MATCH_URL = "http://api.musixmatch.com/ws/1.1/album.get";
 const MATCH_API = "805a6e3e5f0a67743fd3508e57fcefc1";
 var currentCollection;
 
+$("#collectionTable").tablesorter({ sortList: [[0,0], [1,0]] })
+
 function enterTracks() {
   $(document).on(
     "focus",
@@ -58,7 +60,7 @@ function watchLogin() {
         console.log('Success')
         $("#loginCard").css("display", "none");
         $('#logo').css('display', 'none');
-        $('#collectionTable').css("display", "flex");
+        $('#collectionTable').css("display", "table");
         $('.navbar').css('display', 'flex');
         cacheCollection();
       },
@@ -145,26 +147,15 @@ function cacheCollection() {
 }
 
 function renderCollection() {
-  let table = $('#collectionTable tbody');
+  // let table = $('#collectionTable tbody');
   $.each(currentCollection.records, function (idx, elem) {
     $('tbody').append(
       "<tr><td><input type='checkbox' id='"+idx+"'</td><td>" + elem.artist + "</td><td>" + elem.album + "</td><td>" + elem.release + "</td><td>" + elem.label + "</td><td>" + elem.genre + "</td><td>" + elem.format + "</td></tr>")
-  })
-}
+    })
+    $('#collectionTable').trigger("update")
 
+  }
 
-// function sortCollection() {
-//   const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
-
-//   const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
-//     v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-//   document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-//     const table = th.closest('table').find('tbody');
-//     Array.from(table.querySelectorAll('tr'))
-//       .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-//       .forEach(tr => table.appendChild(tr));
-//   })));
-// }
 
 function recordSubmit() {
   $("#addRecord").submit(function (event) {
@@ -208,4 +199,4 @@ $(enterTracks);
 $(watchSignupConfirm);
 // $(cacheCollection);
 // $(renderCollection);
-$(sortCollection);
+// $(sortCollection);
