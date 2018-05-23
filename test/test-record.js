@@ -26,7 +26,7 @@ describe("record object", function() {
 
     return chai
       .request(app)
-      .post("/collection")
+      .post("/records")
       .send(newRecord)
       .then(function(res) {
         expect(res).to.have.status(201);
