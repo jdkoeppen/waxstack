@@ -26,7 +26,7 @@ describe("record object", function() {
 
     return chai
       .request(app)
-      .post("/records")
+      .post("/")
       .send(newRecord)
       .then(function(res) {
         expect(res).to.have.status(201);
@@ -44,7 +44,7 @@ describe("record object", function() {
       const badRequestData = {};
       return chai
         .request(app)
-        .post("/collection")
+        .post("/")
         .send(badRequestData)
         .catch(function(res) {
           expect(res).to.have.status(400);
