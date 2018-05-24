@@ -201,12 +201,13 @@ function watchAlbumEdit() {
       var textbox = $(this).next();
       textbox[0].name = this.id.replace("lbl", "txt");
       textbox.val(field.html());
+      //toggle editing class on form
       field.click(function () {
         $(this).hide();
         $(this).next().show();
       });
       textbox.focusout(function () {
-        $(this).detach();
+        $(this).hide();
         $(this).prev().html($(this).val());
         $(this).prev().show();
       });
@@ -219,6 +220,7 @@ function watchAlbumEdit() {
     $('#aModalEdit').removeClass('hidden');
     $('#aModalSave, #aModalCxl, #aModalDelete').addClass('hidden');
   });
+
   $(this).on('submit', '#aModalSave', function (event) {
     let URL = "http://localhost:8080/records";
     event.preventDefault()

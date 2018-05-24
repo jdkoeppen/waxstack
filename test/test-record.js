@@ -2,13 +2,13 @@ const chai = require("chai");
 const expect = chai.expect;
 const chaiHttp = require("chai-http");
 const { app, runServer, closeServer } = require("../server");
+const { PORT, TEST_DATABASE_URL } = require('./config');
 
 chai.use(chaiHttp);
 
 describe("record object", function() {
   before(function() {
-    return runServer();
-  });
+    return runServer(TEST_DATABASE_URL)
 
   after(function() {
     return closeServer();
@@ -26,7 +26,7 @@ describe("record object", function() {
 
     return chai
       .request(app)
-      .post("/")
+      .post("/api/records")
       .send(newRecord)
       .then(function(res) {
         expect(res).to.have.status(201);
@@ -52,7 +52,13 @@ describe("record object", function() {
     });
   });
 
-  it("should GET a record given a valid ID", function() {});
+  it("should GET a collection of Records", function() {
+    return chai.request(app)
+    .get("/")
+    .then(function(res) {
+      expect(res).to.have.status(201)
+    })
+  });
 
   it("should PUT a user edit to an existing record given a valid ID", function() {});
 
