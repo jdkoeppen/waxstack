@@ -208,18 +208,19 @@
                                 <input type="text" class="form-control" name="genre" placeholder="Genre">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group form-group-options col-xs-11 col-sm-9 col-md-12">
-                                <div class="input-group input-group-option col-xs-12">
+                        <div class="form-row">
+                            <div class="form-group col-md-12 trackWrap">
+                                <div class="trackRow input-group input-group-options col-xs-12">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" name="rank" id=trackRank></span>
+                                        <span class="input-group-text" name="rank" id=lastTrackRank></span>
                                     </div>
                                     <input type="text" name="tracks" class="form-control" placeholder="Track">
-                                    <span class="input-group-addon input-group-addon-remove">
-                                        <i class="fas fa-times"></i>
-                                    </span>
                                 </div>
                             </div>
+                        </div>
+                        <div id="addTrack">
+                        <button class="btn btn-secondary"  type="button">Add Track
+                        </button>
                         </div>
                         <div id="addRecordSubmit">
                             <button class="btn btn-primary" type="submit">Submit</button>

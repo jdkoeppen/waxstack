@@ -148,7 +148,8 @@ h5 {
     box-shadow: 0 3px 3px #00000056;
 }
 
-#addRecordSubmit {
+#addRecordSubmit, #addTrack {
+    margin-bottom: 5px;
     text-align: right;
 }
 

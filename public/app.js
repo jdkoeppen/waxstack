@@ -12,38 +12,6 @@ $("#collectionTable").tablesorter({
 })
 
 
-function enterTracks() {
-  $(document).on(
-    "focus",
-    "div.form-group-options div.input-group-option:last-child input",
-    function () {
-      var sInputGroupHtml = $(this)
-        .parent()
-        .html();
-      var sInputGroupClasses = $(this)
-        .parent()
-        .attr("class");
-      $(this)
-        .parent()
-        .parent()
-        .append('<div class="' +
-          sInputGroupClasses +
-          '">' +
-          sInputGroupHtml +
-          "</div>"
-        );
-    }
-  );
-  $(document).on(
-    "click",
-    "div.form-group-options .input-group-addon-remove",
-    function () {
-      $(this)
-        .parent()
-        .remove();
-    }
-  );
-}
 
 function watchLogin() {
   $('#loginForm').submit(function (event) {
@@ -184,7 +152,7 @@ function watchAlbumModal() {
       modal.find('#aModalTracks').append("<li class='editable'>" + name.name + "</li>")
     })
   })
-  $('#albumModal').on('hidden.bs.modal', function(event) {
+  $('#albumModal').on('hidden.bs.modal', function (event) {
     $(this).find('#aModalTracks').empty()
     $('#albumModal').modal('dispose')
   })
@@ -214,13 +182,13 @@ function watchAlbumEdit() {
     });
   })
   $(this).on('click', '#aModalCxl', function (event) {
-    $('.editable').each(function() {
+    $('.editable').each(function () {
       $(this).removeClass('highlight')
     })
     $('#aModalEdit').removeClass('hidden');
     $('#aModalSave, #aModalCxl, #aModalDelete').addClass('hidden');
   });
-
+  
   $(this).on('submit', '#aModalSave', function (event) {
     let URL = "http://localhost:8080/records";
     event.preventDefault()
@@ -231,18 +199,38 @@ function watchAlbumEdit() {
       xhrFields: {
         withCredentials: true
       },
-      type:"PUT",
+      type: "PUT",
       data: JSON.stringify(data),
       contentType: "application/json",
     })
   })
-
+  
 }
 
+function enterTracks() {
+  $('#addRecordModal').on("show.activate.bs.scrollspy.modal", function () {
+    var x = 1
+    var addTrack = $('#addTrack')
+    var wrap = $('.trackWrap')
+    var trackHtml = `<div class="trackRow input-group input-group-options col-xs-11"><div class="input-group-prepend"><span class="input-group-text" name="rank" id="trackRank">#${x}</span></div><input type="text" name="tracks" class="form-control" placeholder="Track"/><div class="input-group-append"><span class="input-group-text" id="deleteTrack"><i class="fas fa-times"></i></span></div></div>`
+    $('#lastTrackRank').text("#" + x)
+
+    $('#addTrack').on('click', function (event) {
+      event.preventDefault;
+      x++;
+      $(wrap).append(trackHtml);
+    });
+    $('.input-group-append').on('click', function (event) {
+      event.preventDefault;
+      x--;
+      $(this).parent('div').remove();
+    })
+  });
+}
 
 function recordSubmit() {
   $("#addRecord").submit(function (event) {
-    let URL = "http://localhost:8080/records";
+    let URL = "http://localhost:8080/api/records";
     event.preventDefault();
     let data = {};
     let input = $(this).serializeArray();
