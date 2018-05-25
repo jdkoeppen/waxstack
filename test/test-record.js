@@ -72,9 +72,48 @@ describe("record object", function () {
     });
 
     it("should PUT a user edit to an existing record given a valid ID", function () {
+      const updateData = {
+      artist: 'Sonic Death Monkey',
+      album: 'Kathleen Turner Overdrive'
+    };
+
+    return Record
+      .findOne()
+      .then(function(res) {
+        updateData.id = record.id;
+
+        return chai.request(app)
+          .put(`/api/records/${record.id}`)
+          .send(updateData);
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+
+        return Restaurant.findById(updateData.id);
+      })
+      .then(function(restaurant) {
+        expect(record.artist).to.equal(updateData.artist);
+        expect(record.album).to.equal(updateData.album);
+      });
 
     });
 
-    it("should DELETE a record given a valid ID", function () {});
+    it("should DELETE a record given a valid ID", function () {
+      let record;
+
+      return Record
+        .findOne()
+        .then(function(_record) {
+          restaurant = _rrecord;
+          return chai.request(app).delete(`/api/records/${record.id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(204);
+          return Restaurant.findById(record.id);
+        })
+        .then(function(_record) {
+          expect(_record).to.be.null;
+        });
+    });
+    });
   });
-})
