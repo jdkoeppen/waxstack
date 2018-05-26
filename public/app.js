@@ -15,7 +15,7 @@ $("#collectionTable").tablesorter({
 
 function watchLogin() {
   $('#loginForm').submit(function (event) {
-    let URL = "http://localhost:8080/api/auth/login";
+    let URL = "/api/auth/login";
     let userName = $('#loginUser').val();
     let password = $('#loginPassword').val();
     let data = {
@@ -110,7 +110,7 @@ function watchAddRecord() {
 }
 
 function cacheCollection() {
-  let URL = 'http://localhost:8080/api/records'
+  let URL = '/api/records'
   $.ajax({
     xhrFields: {
       withCredentials: true
@@ -190,7 +190,7 @@ function watchAlbumEdit() {
   });
   
   $(this).on('submit', '#aModalSave', function (event) {
-    let URL = "http://localhost:8080/records";
+    let URL = "/api/records";
     event.preventDefault()
     let data = {}
     let input = $(this).serializeArray();
@@ -208,20 +208,19 @@ function watchAlbumEdit() {
 }
 
 function enterTracks() {
-  $('#addRecordModal').on("show.activate.bs.scrollspy.modal", function () {
+  $('#addRecordModal').on("show.bs.modal", function () {
     var x = 1
     var addTrack = $('#addTrack')
     var wrap = $('.trackWrap')
-    var trackHtml = `<div class="trackRow input-group input-group-options col-xs-11"><div class="input-group-prepend"><span class="input-group-text" name="rank" id="trackRank">#${x}</span></div><input type="text" name="tracks" class="form-control" placeholder="Track"/><div class="input-group-append"><span class="input-group-text" id="deleteTrack"><i class="fas fa-times"></i></span></div></div>`
-    $('#lastTrackRank').text("#" + x)
+    var trackHtml = `<div class="trackRow input-group input-group-options col-xs-11"><input type="text" name="tracks" class="form-control" placeholder="Track"/><div class="input-group-append"><span class="input-group-text" id="deleteTrack"><i class="fas fa-times"></i></span></div></div>`
 
     $('#addTrack').on('click', function (event) {
       event.preventDefault;
       x++;
       $(wrap).append(trackHtml);
-    });
-    $('.input-group-append').on('click', function (event) {
-      event.preventDefault;
+    })
+
+    $(wrap).on('click', '.input-group-append', function (event) {
       x--;
       $(this).parent('div').remove();
     })
@@ -230,7 +229,7 @@ function enterTracks() {
 
 function recordSubmit() {
   $("#addRecord").submit(function (event) {
-    let URL = "http://localhost:8080/api/records";
+    let URL = "/api/records";
     event.preventDefault();
     let data = {};
     let input = $(this).serializeArray();
