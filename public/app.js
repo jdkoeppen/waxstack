@@ -56,7 +56,7 @@ function watchSignupLink() {
 
 function watchSignup() {
   $("#signupForm").submit(function (event) {
-    let URL = "http://localhost:8080/users";
+    let URL = "http://localhost:8080/api/users";
     event.preventDefault();
     let data = {};
     let input = $(this).serializeArray();
