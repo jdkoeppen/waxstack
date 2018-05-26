@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/api/users/', usersRouter);
+app.use('/users/', usersRouter);
 app.use('/api/records/', collectionRouter);
 app.use('/api/auth/', authRouter);
 
