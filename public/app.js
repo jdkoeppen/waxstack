@@ -122,6 +122,7 @@ function cacheCollection() {
 }
 
 function renderCollection() {
+  $('.tableContent').empty();
   $.each(currentCollection.records, function (idx, elem) {
     $('tbody').append(
       "<tr data-toggle='modal' data-target='#albumModal' data-idx='" + idx + "'><td>" + elem.artist + "</td><td>" + elem.album + "</td><td>" + elem.release + "</td><td>" + elem.label + "</td><td>" + elem.genre + "</td><td>" + elem.format + "</td></tr>")
@@ -207,7 +208,9 @@ function watchAlbumEdit() {
       success: function (data) {
         console.log("SUCCESS", data);
         albumEditOff();
+        alert("Updates Saved");
         cacheCollection()
+        $("#collectionTable").trigger("update");
       },
       error: function () {
         console.log("error", data);
@@ -225,8 +228,10 @@ function watchAlbumEdit() {
       type: "DELETE",
       success: function () {
         console.log("DELETED");
+        alert("Entry Deleted");
         albumEditOff();
         cacheCollection()
+        $("#collectionTable").trigger("update");
       },
       error: function () {
         console.log("error")
@@ -295,9 +300,10 @@ function recordSubmit() {
       contentType: "application/json",
       success: function (data) {
         console.log("success");
-
-        $('#addRecordModal').modal('dispose')
+        alert("Record Added")
+        $('#addRecordModal').modal('hide')
         cacheCollection()
+        $("#collectionTable").trigger("update");
       },
       error: function () {
         console.log("error");
@@ -306,7 +312,6 @@ function recordSubmit() {
   });
 }
 
-// $(onLoad);
 $(watchLogin);
 $(recordSubmit);
 $(watchSignupLink);
@@ -315,6 +320,3 @@ $(enterTracks);
 $(watchSignupConfirm);
 $(watchAlbumModal)
 $(watchAlbumEdit)
-// $(cacheCollection);
-// $(renderCollection);
-// $(sortCollection);

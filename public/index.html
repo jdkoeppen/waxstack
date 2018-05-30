@@ -17,9 +17,9 @@
 </head>
 
 <body>
-    <main>
+    <main role="main">
 
-        <div class="container divCentered logo" id="logo">
+        <div role="banner" class="container divCentered logo" id="logo">
             <h1>Waxstack</h1>
             <p style="color:white">A Painfully Manual Music Database</p>
         </div>
@@ -102,13 +102,13 @@
         </div>
 
         <!-- Main Buttons -->
-        <div class="container hidden" id="btnMain">
+        <div role="navigation" class="container hidden" id="btnMain">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addRecordModal" id="addRecordBtn">Add New Record</button>
         </div>
 
         <!-- Collection Table -->
         <div class="container hidden" id="collectionDiv">
-            <table class="tablesorter table table-striped hidden" id="collectionTable">
+            <table role="table" class="tablesorter table table-striped hidden" id="collectionTable">
                 <thead>
                     <tr>
                         <th scope="col" id="artistHead">Artist</th>
@@ -119,16 +119,16 @@
                         <th scope="col" id="formatHead">Format</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="tableContent">
                 </tbody>
             </table>
         </div>
 
         <!-- Album Display Modal -->
-        <div class="modal fade modal-lg" id="albumModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-lg">
+        <div class="modal fade modal-lg" id="albumModal" aria-labelledby="albumModalLabel" tabindex="-1" role="dialog">
+            <div role="document" class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form class='form-control'>
+                    <form role="form" class='form-control'>
                         <fieldset>
                             <div class="modal-header">
                                 <legend class="modal-title" id="albumModalTitle">Album Detail</legend>
@@ -180,8 +180,8 @@
 
 
         <!-- New Entry Panel -->
-        <div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered">
+        <div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" aria-labelledby="addRecordModalLabel">
+            <div role="document" class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addRecordTitle">Add a New Record</h5>
@@ -189,53 +189,56 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form class="container" id="addRecord">
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="artist">Artist</label>
-                                <input type="text" class="form-control" name="artist" placeholder="Artist">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12">
-                                <label for="album">Album</label>
-                                <input type="text" class="form-control" name="album" placeholder="Album">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="release">Release Year</label>
-                                <input type="text" class="form-control" name="release" placeholder="Release Year (xxxx)">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="label">Label</label>
-                                <input type="text" class="form-control" name="label" placeholder="Record Label">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="format">Format</label>
-                                <input type="text" class="form-control" name="format" placeholder="Format (CD, Vinyl, etc)">
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="genre">Genre</label>
-                                <input type="text" class="form-control" name="genre" placeholder="Genre">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-12 trackWrap">
-                                <div class="trackRowFirst input-group input-group-options col-md-12">
-                                    <input type="text" name="tracks" class="form-control" placeholder="Track">
+                    <form role="form" class="container" id="addRecord">
+                        <fieldset>
+                            <legend class="hidden">Add a New Record</legend>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="artist">Artist</label>
+                                    <input type="text" class="form-control" name="artist" placeholder="Artist">
                                 </div>
                             </div>
-                        </div>
-                        <div id="addTrack">
-                            <button class="btn btn-secondary" type="button">Add Track
-                            </button>
-                        </div>
-                        <div id="addRecordSubmit">
-                            <button class="btn btn-primary" type="submit">Submit</button>
-                        </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="album">Album</label>
+                                    <input type="text" class="form-control" name="album" placeholder="Album">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="release">Release Year</label>
+                                    <input type="text" class="form-control" name="release" placeholder="Release Year (xxxx)">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="label">Label</label>
+                                    <input type="text" class="form-control" name="label" placeholder="Record Label">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="format">Format</label>
+                                    <input type="text" class="form-control" name="format" placeholder="Format (CD, Vinyl, etc)">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="genre">Genre</label>
+                                    <input type="text" class="form-control" name="genre" placeholder="Genre">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-12 trackWrap">
+                                    <div class="trackRowFirst input-group input-group-options col-md-12">
+                                        <input type="text" name="tracks" class="form-control" placeholder="Track">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="addTrack">
+                                <button class="btn btn-secondary" type="button">Add Track
+                                </button>
+                            </div>
+                            <div id="addRecordSubmit">
+                                <button class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                        </fieldset>
                     </form>
                 </div>
             </div>
