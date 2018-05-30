@@ -25,6 +25,7 @@ router.get("/search", (req, res) => {
 })
 
 router.post("/", jsonParser, (req, res) => {
+  console.log(req.body)
   Record.create(req.body)
     .then(function (record) {
       res.status(201).json(record)

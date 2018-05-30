@@ -27,6 +27,11 @@ h5 {
     font-style: italic;
 }
 
+.submitMessage {
+    text-align: center;
+    color: red;
+}
+
 .logo {
     flex-wrap: wrap;
     max-width: 480px;
@@ -49,7 +54,7 @@ h5 {
 }
 
 #loginCard {
-    max-width: 480px;
+    max-width: 400px;
     border-radius: 5px;
     background-color: lightgray;
     margin: 0 auto;
@@ -121,7 +126,13 @@ h5 {
 }
 
 #collectionTable td {
-    font-size: 1.2em;
+    font-size: 1.4em;
+    color: black;
+}
+
+#collectionTable td:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #btnMain {
@@ -146,15 +157,61 @@ h5 {
 
 #aModalImg {
     box-shadow: 0 3px 3px #00000056;
+    margin-bottom: 15px;
 }
 
-#addRecordSubmit, #addTrack {
+#addRecordSubmit,
+#addTrack {
     margin-bottom: 15px;
     text-align: right;
 }
 
-#aModalImg {
-    margin-bottom:15px;
+#aModalAlbum {
+    font-size: 2rem;
+}
+
+#albumModal input[type="text"] {
+    width: 95%;
+    border: none;
+    margin-bottom: 5px;
+    padding: 3px;
+    padding-left: 5px;
+}
+
+input.break {
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+#aModalArtist {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #4F4944 !important;
+}
+
+#aModalFooterRight {
+    text-align: right;
+}
+
+#aModalFooterLeft {
+    text-align: left;
+}
+
+#aModalDelete {
+    margin-left:0;
+}
+
+.form-control-plaintext {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+ol {
+    padding-left: 15px;
+    list-style-position: outside;
+}
+
+.trackRowFirst {
+    padding: 0;
 }
 
 .modal-dialog {
@@ -166,11 +223,11 @@ h5 {
     overflow-y: auto;
 }
 
-.highlight {
-    -webkit-box-shadow: inset 1px 1px 3px 0px #97979752;
-    -moz-box-shadow: inset 1px 1px 3px 0px #97979752;
-    box-shadow: inset 1px 1px 3px 0px #97979752;
+
+.inputEditing {
+    background-color: lightgoldenrodyellow;
 }
+
 label {
     display: none;
 }

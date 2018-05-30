@@ -90,7 +90,7 @@
                     <div class="form-group">
                         <label for="signupPassword1">Password</label>
                         <input type="password" class="form-control" id="signupPassword1" name="password" placeholder="Password">
-                        <small>*Password Must Be At Least 10 Characters</small>
+                        <small class="form-text text-muted">*Password Must Be At Least 10 Characters</smal>
                     </div>
 
                     <div id="signupMsg"></div>
@@ -128,38 +128,52 @@
         <div class="modal fade modal-lg" id="albumModal" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="albumModalTitle"></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <form class='form-control'>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <img id="aModalImg">
-                                        <p class="hidden" id="aModalId"></p>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h2 class="editable" id="aModalAlbum"></h2>
-                                        <h4 class="editable" id="aModalArtist"></h4>
-                                        <h6 class="editable" id="aModalDets"></h6>
-                                        <ol id="aModalTracks">
+                    <form class='form-control'>
+                        <fieldset>
+                            <div class="modal-header">
+                                <legend class="modal-title" id="albumModalTitle">Album Detail</legend>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <img id="aModalImg">
+                                            <input readonly class="form-control-plaintext hidden" id="aModalId" name="id"></input>
+                                            <input type="text" readonly class="form-control-plaintext editable" placeholder="Year Released" id="aModalRel" name="release"></input>
+                                            <input type="text" readonly class="form-control-plaintext editable" placeholder="Label" id="aModalLab" name="label"></input>
+                                            <input type="text" readonly class="form-control-plaintext editable" placeholder="Genre" id="aModalGen" name="genre"></input>
+                                            <input type="text" readonly class="form-control-plaintext editable" placeholder="Format" id="aModalForm" name="format"></input>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" readonly class="form-control-plaintext editable" id="aModalAlbum" name="album"></input>
+                                            <input type="text" readonly class="form-control-plaintext editable" id="aModalArtist" name="artist"></input>
 
-                                        </ol>
+                                            <ol id="aModalTracks">
+
+                                            </ol>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="aModalEdit">Edit</button>
-                        <button type="submit" class="btn btn-primary hidden" id="aModalSave">Save</button>
-                        <button type="button" class="btn btn-secondary hidden" id="aModalCxl">Cancel</button>
-                        <button type="button" class="btn btn-danger hidden" id="aModalDelete">Delete</button>
-                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="container-fluid">
+                                    <div class="form-row">
+                                        <div class="col-md-6" id="aModalFooterLeft">
+                                            <button type="button" class="btn btn-danger hidden" id="aModalDelete">Delete</button>
+                                        </div>
+                                        <div class="col-md-6" id="aModalFooterRight">
+                                            <button type="button" class="btn btn-primary" id="aModalEdit">Edit</button>
+                                            <button type="submit" class="btn btn-primary hidden" id="aModalSave">Save</button>
+                                            <button type="button" class="btn btn-secondary hidden" id="aModalCxl">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
         </div>
@@ -210,14 +224,14 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 trackWrap">
-                                <div class="trackRow input-group input-group-options col-md-12">
+                                <div class="trackRowFirst input-group input-group-options col-md-12">
                                     <input type="text" name="tracks" class="form-control" placeholder="Track">
                                 </div>
                             </div>
                         </div>
                         <div id="addTrack">
-                        <button class="btn btn-secondary"  type="button">Add Track
-                        </button>
+                            <button class="btn btn-secondary" type="button">Add Track
+                            </button>
                         </div>
                         <div id="addRecordSubmit">
                             <button class="btn btn-primary" type="submit">Submit</button>

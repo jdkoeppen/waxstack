@@ -3,6 +3,7 @@
 // const MATCH_URL = "http://api.musixmatch.com/ws/1.1/album.get";
 // const MATCH_API = "805a6e3e5f0a67743fd3508e57fcefc1";
 var currentCollection;
+var currentAlbumId;
 
 $("#collectionTable").tablesorter({
   sortList: [
@@ -10,8 +11,6 @@ $("#collectionTable").tablesorter({
     [1, 0]
   ]
 })
-
-
 
 function watchLogin() {
   $('#loginForm').submit(function (event) {
@@ -103,12 +102,6 @@ function watchSignupConfirm() {
   });
 }
 
-function watchAddRecord() {
-  $('#addRecordBtn').click(function (event) {
-
-  })
-}
-
 function cacheCollection() {
   let URL = '/api/records'
   $.ajax({
@@ -142,69 +135,104 @@ function watchAlbumModal() {
     var selection = $(event.relatedTarget)
     var x = selection.data('idx')
     var elem = currentCollection.records[x]
+    currentAlbumId = elem._id;
     var modal = $(this)
-    modal.find('#aModalId').text(x)
+    modal.find('#aModalId').val(elem._id)
     modal.find('#aModalImg').attr("src", elem.cover);
-    modal.find('#aModalArtist').text(elem.artist);
-    modal.find('#aModalAlbum').text(elem.album);
-    modal.find('#aModalDets').text(elem.release + " | " + elem.label + " | " + elem.genre);
+    modal.find('#aModalArtist').val(elem.artist);
+    modal.find('#aModalAlbum').val(elem.album);
+    modal.find('#aModalRel').val(elem.release);
+    modal.find('#aModalLab').val(elem.label);
+    modal.find('#aModalGen').val(elem.genre);
+    modal.find('#aModalForm').val(elem.format);
     $.each(elem.tracks, function (idx, name) {
-      modal.find('#aModalTracks').append("<li class='editable'>" + name.name + "</li>")
+      modal.find('#aModalTracks').append("<li><input type='text' readonly class='form-control-plaintext editable' value='" + name.name + "'</input></li>")
     })
   })
   $('#albumModal').on('hidden.bs.modal', function (event) {
     $(this).find('#aModalTracks').empty()
     $('#albumModal').modal('dispose')
+    $('#collectionTable').trigger("update")
   })
+}
+
+function albumEditOn() {
+  $('#aModalEdit').addClass('hidden');
+  $('#aModalSave, #aModalCxl, #aModalDelete').removeClass('hidden');
+  $(".editable").each(function () {
+    $(this).removeAttr('readonly').removeClass('form-control-plaintext').addClass('inputEditing')
+  });
+}
+
+function albumEditOff() {
+  $('.editable').each(function () {
+    $(this).removeClass('inputEditing').addClass('form-control-plaintext').attr('readonly')
+  });
+  $('#aModalEdit').removeClass('hidden');
+  $('#aModalSave, #aModalCxl, #aModalDelete').addClass('hidden');
 }
 
 function watchAlbumEdit() {
   $('#albumModal').on('click', '#aModalEdit', function (event) {
-    $('#aModalEdit').addClass('hidden');
-    $('#aModalSave, #aModalCxl, #aModalDelete').removeClass('hidden');
-    $(".editable").each(function () {
-      var field = $(this);
-      field.addClass('highlight')
-      field.after("<input type = 'text' style = 'display:none' />");
-      var textbox = $(this).next();
-      textbox[0].name = this.id.replace("lbl", "txt");
-      textbox.val(field.html());
-      //toggle editing class on form
-      field.click(function () {
-        $(this).hide();
-        $(this).next().show();
-      });
-      textbox.focusout(function () {
-        $(this).hide();
-        $(this).prev().html($(this).val());
-        $(this).prev().show();
-      });
-    });
+    albumEditOn()
   })
+
   $(this).on('click', '#aModalCxl', function (event) {
-    $('.editable').each(function () {
-      $(this).removeClass('highlight')
-    })
-    $('#aModalEdit').removeClass('hidden');
-    $('#aModalSave, #aModalCxl, #aModalDelete').addClass('hidden');
+    albumEditOff()
   });
-  
-  $(this).on('submit', '#aModalSave', function (event) {
-    let URL = "/api/records";
-    event.preventDefault()
-    let data = {}
-    let input = $(this).serializeArray();
-    
+
+  $('#albumModal').on('click', '#aModalSave', function (event) {
+    event.preventDefault();
+    let data = {};
+    let input = $(this).closest('form').serializeArray();
+    $.each(input, function () {
+      if (data[this.name]) {
+        if (!data[this.name].push) {
+          data[this.name] = [data[this.name]];
+        }
+        data[this.name].push(this.value || "");
+      } else {
+        data[this.name] = this.value || "";
+      }
+    });
+
     $.ajax({
+      url: `/api/records/${currentAlbumId}`,
       xhrFields: {
         withCredentials: true
       },
       type: "PUT",
       data: JSON.stringify(data),
       contentType: "application/json",
+      success: function (data) {
+        console.log("SUCCESS", data);
+        albumEditOff();
+        cacheCollection()
+      },
+      error: function () {
+        console.log("error", data);
+      }
     })
   })
-  
+
+  $('#albumModal').on('click', '#aModalDelete', function (event) {
+    event.preventDefault();
+    $.ajax({
+      url: `/api/records/${currentAlbumId}`,
+      xhrFields: {
+        withCredentials: true
+      },
+      type: "DELETE",
+      success: function () {
+        console.log("DELETED");
+        albumEditOff();
+        cacheCollection()
+      },
+      error: function () {
+        console.log("error")
+      }
+    })
+  })
 }
 
 function enterTracks() {
@@ -227,6 +255,14 @@ function enterTracks() {
   });
 }
 
+function clearRecordModal() {
+  $('#addRecordModal').modal('hide.bs.modal', function (event) {
+    $('#addRecord').each(function () {
+      this.reset();
+    });
+  })
+}
+
 function recordSubmit() {
   $("#addRecord").submit(function (event) {
     let URL = "/api/records";
@@ -243,6 +279,10 @@ function recordSubmit() {
         data[this.name] = this.value || "";
       }
     });
+    data.tracks = data.tracks.map((name, rank) => ({
+      name,
+      rank: rank + 1
+    }))
     console.log(data);
 
     $.ajax({
@@ -257,7 +297,7 @@ function recordSubmit() {
         console.log("success");
 
         $('#addRecordModal').modal('dispose')
-        $('#collectionTable').trigger("update")
+        cacheCollection()
       },
       error: function () {
         console.log("error");
@@ -273,7 +313,6 @@ $(watchSignupLink);
 $(watchSignup);
 $(enterTracks);
 $(watchSignupConfirm);
-$(watchAddRecord);
 $(watchAlbumModal)
 $(watchAlbumEdit)
 // $(cacheCollection);
