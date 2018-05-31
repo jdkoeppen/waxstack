@@ -3,7 +3,7 @@ const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const {Collection} = require('../collection')
+const {Collection} = require('../collection/models')
 
 const config = require('../config');
 const router = express.Router();
@@ -23,10 +23,10 @@ const localAuth = passport.authenticate('local', {
 });
 router.use(bodyParser.json());
 router.post('/login', localAuth, (req, res) => {
-  console.log({Collection})
+  
   const authToken = createAuthToken(req.user.serialize());
   res.cookie('authToken', authToken)
-  
+  console.log("Collection is ", {Collection})
   Collection.findOne({userId: req.user._id})
     .catch(function (err) {
       return Collection.create({userId: req.user._id})
