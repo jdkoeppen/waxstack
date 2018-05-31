@@ -9,8 +9,9 @@ const passport = require('passport');
 mongoose.Promise = global.Promise;
 
 const app = express();
-const {router: collectionRouter} = require('./record');
+const { router: recordRouter} = require('./record');
 const { router: usersRouter } = require('./users');
+const { router: collectionRouter} = require('./collection');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL } = require('./config');
 
@@ -30,7 +31,7 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
-app.use('/api/records/', collectionRouter);
+app.use('/api/records/', recordRouter);
 app.use('/api/auth/', authRouter);
 
 
@@ -40,10 +41,10 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 app.use(express.static("public"));
 
 app.get("/", function(req, res) {
-  res.json("I am receiving you.");
+  res.json("How did you get in here?");
 });
 
-app.use('/api/collection', jwtAuth, collectionRouter) 
+app.use('/api/collection', jwtAuth, recordRouter) 
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });

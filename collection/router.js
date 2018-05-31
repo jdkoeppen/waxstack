@@ -1,9 +1,10 @@
-const {Record} = require("./models");
+const {
+  Record
+} = require("./models");
 const bodyParser = require("body-parser");
 const jsonParser = bodyParser.json();
 const express = require("express");
 const router = express.Router();
-const {Collection} = require('../collection')
 
 router.get("/", (req, res) => {
   return Record.find()
@@ -27,10 +28,7 @@ router.post("/", jsonParser, (req, res) => {
   console.log(req.body)
   Record.create(req.body)
     .then(function (record) {
-     return Collection.findOneAndUpdate({userId: req.user._id}, {$set: {$push: {tracks: record._id}}})
-      .then(function() {
-        res.status(201).json(record)
-      })
+      res.status(201).json(record)
     })
     .catch(function (err) {
       res.status(400).send(err.message);

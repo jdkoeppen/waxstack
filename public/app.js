@@ -12,6 +12,15 @@ $("#collectionTable").tablesorter({
   ]
 })
 
+/***
+ *        __                  _      
+ *       / /   ____   ____ _ (_)____ 
+ *      / /   / __ \ / __ `// // __ \
+ *     / /___/ /_/ // /_/ // // / / /
+ *    /_____/\____/ \__, //_//_/ /_/ 
+ *                 /____/            
+ */
+
 function watchLogin() {
   $('#loginForm').submit(function (event) {
     let URL = "/api/auth/login";
@@ -45,6 +54,15 @@ function watchLogin() {
     })
   })
 }
+
+/***
+ *       _____  _                           
+ *      / ___/ (_)____ _ ____   __  __ ____ 
+ *      \__ \ / // __ `// __ \ / / / // __ \
+ *     ___/ // // /_/ // / / // /_/ // /_/ /
+ *    /____//_/ \__, //_/ /_/ \__,_// .___/ 
+ *             /____/              /_/      
+ */
 
 function watchSignupLink() {
   $("#signupLink").click(function (event) {
@@ -102,6 +120,15 @@ function watchSignupConfirm() {
   });
 }
 
+/***
+ *       ______              __        
+ *      / ____/____ _ _____ / /_   ___ 
+ *     / /    / __ `// ___// __ \ / _ \
+ *    / /___ / /_/ // /__ / / / //  __/
+ *    \____/ \__,_/ \___//_/ /_/ \___/ 
+ *                                     
+ */
+
 function cacheCollection() {
   let URL = '/api/records'
   $.ajax({
@@ -121,6 +148,15 @@ function cacheCollection() {
   })
 }
 
+/***
+ *        ____                    __           
+ *       / __ \ ___   ____   ____/ /___   _____
+ *      / /_/ // _ \ / __ \ / __  // _ \ / ___/
+ *     / _, _//  __// / / // /_/ //  __// /    
+ *    /_/ |_| \___//_/ /_/ \__,_/ \___//_/     
+ *                                             
+ */
+
 function renderCollection() {
   $('.tableContent').empty();
   $.each(currentCollection.records, function (idx, elem) {
@@ -130,6 +166,14 @@ function renderCollection() {
   $('#collectionTable').trigger("update")
 }
 
+/***
+ *        ___     __ __                         __  ___            __        __
+ *       /   |   / // /_   __  __ ____ ___     /  |/  /____   ____/ /____ _ / /
+ *      / /| |  / // __ \ / / / // __ `__ \   / /|_/ // __ \ / __  // __ `// / 
+ *     / ___ | / // /_/ // /_/ // / / / / /  / /  / // /_/ // /_/ // /_/ // /  
+ *    /_/  |_|/_//_.___/ \__,_//_/ /_/ /_/  /_/  /_/ \____/ \__,_/ \__,_//_/   
+ *                                                                             
+ */
 
 function watchAlbumModal() {
   $('#albumModal').on('show.bs.modal', function (event) {
