@@ -44,7 +44,7 @@ app.get("/", function(req, res) {
   res.json("How did you get in here?");
 });
 
-app.use('/api/collection', jwtAuth, recordRouter) 
+app.use('/api/collection', jwtAuth, collectionRouter) 
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });

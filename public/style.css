@@ -3,8 +3,23 @@
 }
 
 body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-image: url('assets/mainbg.jpg');
     background-color: #4F4944;
     font-family: 'Lato';
+}
+
+.alignleft {
+    float: left;
+    margin-right: 10px;
+}
+
+.alignright {
+    float: right;
+    margin-left: 10px;
 }
 
 .hidden {
@@ -27,6 +42,14 @@ h5 {
     font-style: italic;
 }
 
+input[type=checkbox] {
+  -ms-transform: scale(1.8);
+  -moz-transform: scale(1.8); 
+  -webkit-transform: scale(1.8); 
+  -o-transform: scale(1.8);
+  padding: 10px;
+}
+
 .submitMessage {
     text-align: center;
     color: red;
@@ -47,15 +70,17 @@ h5 {
 
 .card {
     box-shadow: 0 3px 3px #00000056;
+    border-radius: 0;
 }
 
 .modal-header {
     background-color: gold;
+    border-bottom: none;
 }
 
 #loginCard {
     max-width: 400px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
     box-shadow: 0 3px 3px #00000056;
@@ -74,7 +99,7 @@ h5 {
 
 #signupCard {
     max-width: 480px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
     box-shadow: 0 3px 3px #00000056;
@@ -83,7 +108,7 @@ h5 {
 #signupConf {
     align-content: center;
     max-width: 480px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
 }
@@ -102,9 +127,9 @@ h5 {
     /* max-width: 960px; */
     margin: 0 auto;
     background-color: lightgray;
-    padding-top: 15px;
+    /* padding-top: 15px; */
     padding-bottom: 15px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     box-shadow: 0 3px 3px #00000056;
 }
 
@@ -112,7 +137,7 @@ h5 {
     background-color: gold;
     color: #4F4944;
     font-family: 'Lato';
-    font-size: 1.5em;
+    /* font-size: 1.5em; */
 }
 
 #collectionTable th {
@@ -126,7 +151,7 @@ h5 {
 }
 
 #collectionTable td {
-    font-size: 1.4em;
+    /* font-size: 1.4em; */
     color: black;
 }
 
@@ -135,9 +160,16 @@ h5 {
     cursor: pointer;
 }
 
-#btnMain {
-    text-align: right;
+#navMain {
+    /* clear: both; */
+    /* text-align: right; */
     margin-bottom: 10px;
+}
+
+#navMain::after {
+    content: "";
+    display: block;
+    clear: both;
 }
 
 #addRecord {
@@ -146,7 +178,7 @@ h5 {
     background-color: lightgray;
     padding-top: 15px;
     padding-bottom: 15px;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     box-shadow: 0 3px 3px #00000056;
 }
 
@@ -155,9 +187,29 @@ h5 {
     background-color: gold;
 }
 
+/* @media (min-width: 620px) {
+    .modal-dialog {
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+} */
+
+.noCover {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-image: url('assets/nocover.png');
+    margin-bottom: 15px;
+    width: 80%;
+}
+
 #aModalImg {
     box-shadow: 0 3px 3px #00000056;
+}
+
+.cover {
     margin-bottom: 15px;
+    width: 80%;
 }
 
 #addRecordSubmit,
@@ -166,25 +218,30 @@ h5 {
     text-align: right;
 }
 
-#aModalAlbum {
-    font-size: 2rem;
+#deleteTrack {
+    cursor: pointer;
+}
+
+.modal-content>.form-control {
+    padding: 0;
+    border: none;
 }
 
 #albumModal input[type="text"] {
     width: 95%;
     border: none;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
     padding: 3px;
     padding-left: 5px;
 }
 
-input.break {
-    word-wrap: break-word;
-    word-break: break-all;
-}
 
 #aModalArtist {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+}
+
+#aModalAlbum {
+    font-size: 1.4rem;
     border-bottom: 1px solid #4F4944 !important;
 }
 
@@ -197,12 +254,17 @@ input.break {
 }
 
 #aModalDelete {
-    margin-left:0;
+    margin-left: 0;
 }
 
 .form-control-plaintext {
     padding-top: 0;
     padding-bottom: 0;
+}
+
+input:-webkit-autofill {
+    box-shadow: inset 0 0 0px 9999px white;
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
 }
 
 ol {
@@ -222,7 +284,6 @@ ol {
     height: 70%;
     overflow-y: auto;
 }
-
 
 .inputEditing {
     background-color: lightgoldenrodyellow;

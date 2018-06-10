@@ -3,10 +3,13 @@ const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
-const {Collection} = require('../collection/models')
+const {
+  Collection
+} = require('../collection/models')
 
 const config = require('../config');
 const router = express.Router();
+
 
 const createAuthToken = function (user) {
   return jwt.sign({
@@ -21,18 +24,36 @@ const createAuthToken = function (user) {
 const localAuth = passport.authenticate('local', {
   session: false
 });
+
+
 router.use(bodyParser.json());
 router.post('/login', localAuth, (req, res) => {
-  
+
   const authToken = createAuthToken(req.user.serialize());
-  res.cookie('authToken', authToken)
-  console.log("Collection is ", {Collection})
-  Collection.findOne({userId: req.user._id})
-    .catch(function (err) {
-      return Collection.create({userId: req.user._id})
+
+  console.log("Collection is ", {
+    Collection
+  })
+  Collection.findOne({
+      userId: req.user._id
     })
-    .finally(function () {
-      res.json({authToken})
+    .exec()
+    .then(function (col) {
+      if (!col) {
+        console.log('Collection Created')
+        return Collection.create({
+          userId: req.user._id
+        })
+      }
+      return col
+    })
+    .then(function () {
+      res.json({
+        authToken
+      })
+    })
+    .catch(function (err) {
+      console.log(err)
     })
 });
 
