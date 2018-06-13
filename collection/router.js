@@ -6,15 +6,16 @@ const jsonParser = bodyParser.json();
 const express = require("express");
 const router = express.Router();
 
-// router.get("/", (req, res) => {
-//   return Record.find()
-//     .then(records => {
-//       res.json({
-//         records: records.map(record => record)
-//       });
-//     })
-//     .catch(err => res.status(400).send(err.message));
-// });
+router.get("/", (req, res) => {
+  return Collection.findOne({
+    userId: req.user.id
+  })
+    .populate("records")
+    .then(collection => {
+      res.json(collection);
+    })
+    .catch(err => res.status(400).send(err.message));
+});
 
 // router.get("/search", (req, res) => {
 //   return Record.find({'artist':req.query.artist})
@@ -45,13 +46,11 @@ router.put("/", jsonParser, (req, res) => {
       new: true
     })
     .then(function (collection) {
-      console.log(collection)
       res.json(collection);
     })
     .catch(function (err) {
       res.status(400).send(err.message);
     });
-    console.log(req.user)
 });
 
 // router.delete("/:id", (req, res) => {

@@ -33,6 +33,7 @@ router.post("/", jsonParser, (req, res) => {
       })
     })
     .catch(function (err) {
+      console.log(err.message)
       res.status(400).send(err.message);
     });
 });

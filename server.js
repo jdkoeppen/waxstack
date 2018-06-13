@@ -29,14 +29,12 @@ app.use(function(req, res, next) {
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
-
-app.use('/api/users/', usersRouter);
-app.use('/api/records/', recordRouter);
-app.use('/api/auth/', authRouter);
-
-
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
+app.use('/api/users/', usersRouter);
+app.use('/api/records/', jwtAuth, recordRouter);
+app.use('/api/auth/', authRouter);
+app.use('/api/collection/', jwtAuth, collectionRouter) 
 
 app.use(express.static("public"));
 
@@ -44,7 +42,6 @@ app.get("/", function(req, res) {
   res.json("How did you get in here?");
 });
 
-app.use('/api/collection', jwtAuth, collectionRouter) 
 
 app.use("*", (req, res) => {
   return res.status(404).json({ message: "Not Found" });

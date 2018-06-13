@@ -31,9 +31,7 @@ router.post('/login', localAuth, (req, res) => {
 
   const authToken = createAuthToken(req.user.serialize());
 
-  console.log("Collection is ", {
-    Collection
-  })
+
   Collection.findOne({
       userId: req.user._id
     })
@@ -47,15 +45,17 @@ router.post('/login', localAuth, (req, res) => {
       }
       return col
     })
-    .then(function () {
+    .then(function (col) {
       res.json({
-        authToken
+        authToken, user: req.user, id: col._id
       })
     })
+    
     .catch(function (err) {
       console.log(err)
     })
 });
+
 
 const jwtAuth = passport.authenticate('jwt', {
   session: false
