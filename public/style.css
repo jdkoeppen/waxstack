@@ -42,12 +42,32 @@ h5 {
     font-style: italic;
 }
 
+.navbar {
+    margin-bottom: 50px;
+}
+
+.navbar-brand {
+    font-family: 'Dancing Script';
+    color: white;
+    font-size: 1.8em;
+}
+
+#instructions {
+    max-width: 400px;
+    text-align: justify;
+    background-color: lightgray;
+    padding: 20px;
+    margin-top: 100px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
 input[type=checkbox] {
-  -ms-transform: scale(1.8);
-  -moz-transform: scale(1.8); 
-  -webkit-transform: scale(1.8); 
-  -o-transform: scale(1.8);
-  padding: 10px;
+    -ms-transform: scale(1.8);
+    -moz-transform: scale(1.8);
+    -webkit-transform: scale(1.8);
+    -o-transform: scale(1.8);
+    padding: 10px;
 }
 
 .submitMessage {
@@ -69,7 +89,7 @@ input[type=checkbox] {
 }
 
 .card {
-    box-shadow: 0 3px 3px #00000056;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     border-radius: 0;
 }
 
@@ -83,8 +103,9 @@ input[type=checkbox] {
     /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
-    box-shadow: 0 3px 3px #00000056;
-}
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+    }
 
 #signupLink {
     color: #4F4944;
@@ -102,8 +123,9 @@ input[type=checkbox] {
     /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
-    box-shadow: 0 3px 3px #00000056;
-}
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+    }
 
 #signupConf {
     align-content: center;
@@ -130,8 +152,9 @@ input[type=checkbox] {
     /* padding-top: 15px; */
     padding-bottom: 15px;
     /* border-radius: 5px; */
-    box-shadow: 0 3px 3px #00000056;
-}
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+    }
 
 #collectionTable thead {
     background-color: gold;
@@ -179,8 +202,9 @@ input[type=checkbox] {
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 0 0 5px 5px;
-    box-shadow: 0 3px 3px #00000056;
-}
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+    }
 
 .card-header {
     height: 50px;
@@ -204,8 +228,9 @@ input[type=checkbox] {
 }
 
 #aModalImg {
-    box-shadow: 0 3px 3px #00000056;
-}
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
+    0 6px 6px rgba(0, 0, 0, 0.23);
+    }
 
 .cover {
     margin-bottom: 15px;
@@ -234,7 +259,6 @@ input[type=checkbox] {
     padding: 3px;
     padding-left: 5px;
 }
-
 
 #aModalArtist {
     font-size: 1.4rem;

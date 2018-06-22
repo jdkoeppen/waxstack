@@ -3,10 +3,20 @@
 // const MATCH_URL = "http://api.musixmatch.com/ws/1.1/album.get";
 // const MATCH_API = "805a6e3e5f0a67743fd3508e57fcefc1";
 var globalCollection;
-var currentCollection;
 var currentUser;
 var userCollection;
+var currentCollection;
 var currentAlbumId;
+
+/***
+ *    ##     ## ######## #### ##        ######  
+ *    ##     ##    ##     ##  ##       ##    ## 
+ *    ##     ##    ##     ##  ##       ##       
+ *    ##     ##    ##     ##  ##        ######  
+ *    ##     ##    ##     ##  ##             ## 
+ *    ##     ##    ##     ##  ##       ##    ## 
+ *     #######     ##    #### ########  ######  
+ */
 
 $("#collectionTable").tablesorter({
   sortList: [
@@ -15,84 +25,17 @@ $("#collectionTable").tablesorter({
   ]
 });
 
-/***
- *        __                  _
- *       / /   ____   ____ _ (_)____
- *      / /   / __ \ / __ `// // __ \
- *     / /___/ /_/ // /_/ // // / / /
- *    /_____/\____/ \__, //_//_/ /_/
- *                 /____/
- */
-
-function watchLogin() {
-  $("#loginForm").submit(function (event) {
-    let URL = "/api/auth/login";
-    let userName = $("#loginUser").val();
-    let password = $("#loginPassword").val();
-    let data = {
-      username: userName,
-      password: password
-    };
-    event.preventDefault();
-    $.ajax({
-      contentType: "application/json",
-      url: URL,
-      type: "POST",
-      data: JSON.stringify(data),
-      success: function (data) {
-        localStorage.setItem('authToken', data.authToken)
-        currentUser = data.user
-        $("#loginCard").addClass("hidden");
-        $("#navMain").removeClass("hidden");
-        $("#collectionDiv").removeClass("hidden");
-        $("#collectionTable").removeClass("hidden");
-
-        cacheCollection().then(getUserCol);
-      },
-      error: function (error) {
-        let responseMessage = "Incorrect username or password.";
-        $("#loginMsg").html(`<p style="color:red">${responseMessage}</p>`);
-        console.log(responseMessage);
-      }
-    });
-  });
-}
-
-function getUserCol() {
-  let URL = "/api/collection"
-  let authToken = localStorage.getItem('authToken')
-  $.ajax({
-    xhrFields: {
-      withCredentials: true
-    },
-    contentType: "application/json",
-    url: URL,
-    type: "GET",
-    headers: {
-      Authorization: `Bearer ${authToken}`
-    },
-    success: function (data) {
-      userCollection = data.records;
-      renderCollection();
-    },
-    error: function () {
-      console.log("error");
-    }
-  });
-}
-
-// function filteredCollection(collection, recordIds) {
-//   return recordIds.map(recordId => collection.find(record => record._id === recordId)).filter(Boolean)
-// }
 
 /***
- *       _____  _
- *      / ___/ (_)____ _ ____   __  __ ____
- *      \__ \ / // __ `// __ \ / / / // __ \
- *     ___/ // // /_/ // / / // /_/ // /_/ /
- *    /____//_/ \__, //_/ /_/ \__,_// .___/
- *             /____/              /_/
+ *     ######  ####  ######   ##    ## ##     ## ########  
+ *    ##    ##  ##  ##    ##  ###   ## ##     ## ##     ## 
+ *    ##        ##  ##        ####  ## ##     ## ##     ## 
+ *     ######   ##  ##   #### ## ## ## ##     ## ########  
+ *          ##  ##  ##    ##  ##  #### ##     ## ##        
+ *    ##    ##  ##  ##    ##  ##   ### ##     ## ##        
+ *     ######  ####  ######   ##    ##  #######  ##        
  */
+
 
 function watchSignupLink() {
   $("#signupLink").click(function (event) {
@@ -151,19 +94,107 @@ function watchSignupConfirm() {
 }
 
 /***
- *       ______              __
- *      / ____/____ _ _____ / /_   ___
- *     / /    / __ `// ___// __ \ / _ \
- *    / /___ / /_/ // /__ / / / //  __/
- *    \____/ \__,_/ \___//_/ /_/ \___/
- *
+ *    ##        #######   ######   #### ##    ## 
+ *    ##       ##     ## ##    ##   ##  ###   ## 
+ *    ##       ##     ## ##         ##  ####  ## 
+ *    ##       ##     ## ##   ####  ##  ## ## ## 
+ *    ##       ##     ## ##    ##   ##  ##  #### 
+ *    ##       ##     ## ##    ##   ##  ##   ### 
+ *    ########  #######   ######   #### ##    ## 
  */
+
+function watchLogin() {
+  $("#loginForm").submit(function (event) {
+    let URL = "/api/auth/login";
+    let userName = $("#loginUser").val();
+    let password = $("#loginPassword").val();
+    let data = {
+      username: userName,
+      password: password
+    };
+    event.preventDefault();
+    $.ajax({
+      contentType: "application/json",
+      url: URL,
+      type: "POST",
+      data: JSON.stringify(data),
+      success: function (data) {
+        localStorage.setItem('authToken', data.authToken)
+        currentUser = data.user;
+        currentCollection = "user";
+        $("#loginCard").addClass("hidden");
+        $(".navbar").removeClass("hidden");
+        $("#logo").addClass("hidden");
+        $("#navMain").removeClass("hidden");
+        $("#collectionDiv").removeClass("hidden");
+        $("#collectionTable").removeClass("hidden");
+
+        cacheCollection().then(getUserCol);
+      },
+      error: function (error) {
+        let responseMessage = "Incorrect username or password.";
+        $("#loginMsg").html(`<p style="color:red">${responseMessage}</p>`);
+        console.log(responseMessage);
+      }
+    });
+  });
+}
+
+/***
+ *    ##     ##  ######  ######## ########  
+ *    ##     ## ##    ## ##       ##     ## 
+ *    ##     ## ##       ##       ##     ## 
+ *    ##     ##  ######  ######   ########  
+ *    ##     ##       ## ##       ##   ##   
+ *    ##     ## ##    ## ##       ##    ##  
+ *     #######   ######  ######## ##     ## 
+ */
+
+function getUserCol() {
+  let URL = "/api/collection"
+  let authToken = localStorage.getItem('authToken')
+  $.ajax({
+    xhrFields: {
+      withCredentials: true
+    },
+    contentType: "application/json",
+    url: URL,
+    type: "GET",
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    },
+    success: function (data) {
+      userCollection = data;
+      currentCollection = userCollection;
+      renderCollection();
+    },
+    error: function () {
+      console.log("error");
+    }
+  });
+}
+
+// function filteredCollection(collection, recordIds) {
+//   return recordIds.map(recordId => collection.find(record => record._id === recordId)).filter(Boolean)
+// }
+
+
+/***
+ *     ######     ###     ######  ##     ## ######## 
+ *    ##    ##   ## ##   ##    ## ##     ## ##       
+ *    ##        ##   ##  ##       ##     ## ##       
+ *    ##       ##     ## ##       ######### ######   
+ *    ##       ######### ##       ##     ## ##       
+ *    ##    ## ##     ## ##    ## ##     ## ##       
+ *     ######  ##     ##  ######  ##     ## ######## 
+ */
+
 
 function cacheCollection() {
   let URL = "/api/records";
   let authToken = localStorage.getItem('authToken')
 
-    return $.ajax({
+  return $.ajax({
     xhrFields: {
       withCredentials: true
     },
@@ -184,22 +215,61 @@ function cacheCollection() {
 }
 
 /***
- *        ____                    __
- *       / __ \ ___   ____   ____/ /___   _____
- *      / /_/ // _ \ / __ \ / __  // _ \ / ___/
- *     / _, _//  __// / / // /_/ //  __// /
- *    /_/ |_| \___//_/ /_/ \__,_/ \___//_/
- *
+ *    ########  ######## ##    ## ########  ######## ########  
+ *    ##     ## ##       ###   ## ##     ## ##       ##     ## 
+ *    ##     ## ##       ####  ## ##     ## ##       ##     ## 
+ *    ########  ######   ## ## ## ##     ## ######   ########  
+ *    ##   ##   ##       ##  #### ##     ## ##       ##   ##   
+ *    ##    ##  ##       ##   ### ##     ## ##       ##    ##  
+ *    ##     ## ######## ##    ## ########  ######## ##     ## 
  */
+
+
+function instructions() {
+  if (!userCollection) {
+    $('#instructions').removeClass('hidden')
+  }
+}
+
+function globalCol() {
+  $('#globeCol').on('click', function (event) {
+    event.preventDefault();
+    currentCollection = globalCollection;
+    $(".tableContent").empty();
+    renderCollection()
+  })
+}
+
+function userCol() {
+  $('#myCol').on('click', function (event) {
+    event.preventDefault();
+    currentCollection = userCollection;
+    $(".tableContent").empty();
+    renderCollection()
+    $('#addChecked').addClass('hidden');
+
+  })
+}
 
 function renderCollection() {
   $(".tableContent").empty();
-  $.each(globalCollection.records, function (index, elem) {
-    // let rowId = 'row' + idx;
+  $.each(currentCollection.records, function (index, elem) {
     $("tbody").append(`<tr data-toggle='modal' data-target='#albumModal' data-idx='${index}' data-id='${elem._id}'><td class='checkable' ><input type='checkbox' role='checkbox' </td><td>${elem.artist}</td><td>${elem.album}</td><td>${elem.release}</td><td>${elem.label}</td><td>${elem.genre}</td><td>${elem.format}</td></tr>`);
   });
-  $("#collectionTable").trigger("update");
+  instructions()
+  $("#collectionTable").trigger("update")
 }
+
+/***
+ *     ######  ##     ## ########  ######  ##    ##  ######  
+ *    ##    ## ##     ## ##       ##    ## ##   ##  ##    ## 
+ *    ##       ##     ## ##       ##       ##  ##   ##       
+ *    ##       ######### ######   ##       #####     ######  
+ *    ##       ##     ## ##       ##       ##  ##         ## 
+ *    ##    ## ##     ## ##       ##    ## ##   ##  ##    ## 
+ *     ######  ##     ## ########  ######  ##    ##  ######  
+ */
+
 
 function watchCheck() {
   $("table").on(
@@ -223,6 +293,16 @@ function watchCheckAll() {
     );
   });
 }
+
+/***
+ *       ###    ########  ########  
+ *      ## ##   ##     ## ##     ## 
+ *     ##   ##  ##     ## ##     ## 
+ *    ##     ## ##     ## ##     ## 
+ *    ######### ##     ## ##     ## 
+ *    ##     ## ##     ## ##     ## 
+ *    ##     ## ########  ########  
+ */
 
 function watchAdd() {
   $("#addChecked").on("click", function (event) {
@@ -265,17 +345,24 @@ function watchAdd() {
           title: "Records Added",
           message: `${recordIds.length} Selections Added to Your Collection Successfully.`
         });
-        cacheCollection().then(getUserCol).then(function () {
-          $("#collectionTable").trigger("update")
-        });
+        getUserCol().then(renderCollection)
       },
       error: function () {
         console.log("error", recordIds);
       }
     });
   });
-
 }
+
+/***
+ *    ######## ########  #### ######## 
+ *    ##       ##     ##  ##     ##    
+ *    ##       ##     ##  ##     ##    
+ *    ######   ##     ##  ##     ##    
+ *    ##       ##     ##  ##     ##    
+ *    ##       ##     ##  ##     ##    
+ *    ######## ########  ####    ##    
+ */
 
 function albumEditOn() {
   $("#aModalEdit").addClass("hidden");
@@ -296,11 +383,22 @@ function albumEditOff() {
   $("#aModalSave, #aModalCxl, #aModalDelete").addClass("hidden");
 }
 
+/***
+ *    ##     ## #### ######## ##      ## 
+ *    ##     ##  ##  ##       ##  ##  ## 
+ *    ##     ##  ##  ##       ##  ##  ## 
+ *    ##     ##  ##  ######   ##  ##  ## 
+ *     ##   ##   ##  ##       ##  ##  ## 
+ *      ## ##    ##  ##       ##  ##  ## 
+ *       ###    #### ########  ###  ###  
+ */
+
 function watchAlbumModal() {
   $("#albumModal").on("show.bs.modal", function (event) {
     var selection = $(event.relatedTarget);
     var x = selection.data("idx");
-    var elem = globalCollection.records[x];
+    var elem =
+     currentCollection.records[x];
     currentAlbumId = elem._id;
     var noCover = "assets/nocover.png";
     var cover = elem.cover ? elem.cover : noCover;
@@ -341,6 +439,16 @@ function watchAlbumEdit() {
     albumEditOff();
     $("#albumModal").modal("handleUpdate");
   });
+
+  /***
+   *     ######     ###    ##     ## ######## 
+   *    ##    ##   ## ##   ##     ## ##       
+   *    ##        ##   ##  ##     ## ##       
+   *     ######  ##     ## ##     ## ######   
+   *          ## #########  ##   ##  ##       
+   *    ##    ## ##     ##   ## ##   ##       
+   *     ######  ##     ##    ###    ######## 
+   */
 
   $("#albumModal").on("click", "#aModalSave", function (event) {
     event.preventDefault();
@@ -391,12 +499,22 @@ function watchAlbumEdit() {
     });
   });
 
+  /***
+   *    ########  ######## ##       ######## ######## ######## 
+   *    ##     ## ##       ##       ##          ##    ##       
+   *    ##     ## ##       ##       ##          ##    ##       
+   *    ##     ## ######   ##       ######      ##    ######   
+   *    ##     ## ##       ##       ##          ##    ##       
+   *    ##     ## ##       ##       ##          ##    ##       
+   *    ########  ######## ######## ########    ##    ######## 
+   */
+
   $("#albumModal").on("click", "#aModalDelete", function (event) {
     event.preventDefault();
     let authToken = localStorage.getItem('authToken')
 
     $.ajax({
-      url: `/api/records/${currentAlbumId}`,
+      url: `/api/collection/${currentAlbumId}`,
       xhrFields: {
         withCredentials: true
       },
@@ -415,8 +533,9 @@ function watchAlbumEdit() {
         });
         albumEditOff();
         $("#albumModal").modal("hide");
-        cacheCollection().then(getUserCol).then(function() {
-          $("#collectionTable").trigger("update")});
+        cacheCollection().then(getUserCol).then(function () {
+          $("#collectionTable").trigger("update")
+        });
       },
       error: function () {
         console.log("error");
@@ -424,6 +543,16 @@ function watchAlbumEdit() {
     });
   });
 }
+
+/***
+ *    ######## ########     ###     ######  ##    ## 
+ *       ##    ##     ##   ## ##   ##    ## ##   ##  
+ *       ##    ##     ##  ##   ##  ##       ##  ##   
+ *       ##    ########  ##     ## ##       #####    
+ *       ##    ##   ##   ######### ##       ##  ##   
+ *       ##    ##    ##  ##     ## ##    ## ##   ##  
+ *       ##    ##     ## ##     ##  ######  ##    ## 
+ */
 
 function addTrack() {
   $("#addTrack").on("click", function (event) {
@@ -440,6 +569,16 @@ function addTrack() {
       .remove();
   });
 }
+
+/***
+ *    ##    ## ######## ##      ## 
+ *    ###   ## ##       ##  ##  ## 
+ *    ####  ## ##       ##  ##  ## 
+ *    ## ## ## ######   ##  ##  ## 
+ *    ##  #### ##       ##  ##  ## 
+ *    ##   ### ##       ##  ##  ## 
+ *    ##    ## ########  ###  ###  
+ */
 
 function recordSubmit() {
   $("#addRecord").submit(function (event) {
@@ -500,11 +639,23 @@ function recordSubmit() {
   });
 }
 
+/***
+ *     #######  ##    ## ##        #######     ###    ########  
+ *    ##     ## ###   ## ##       ##     ##   ## ##   ##     ## 
+ *    ##     ## ####  ## ##       ##     ##  ##   ##  ##     ## 
+ *    ##     ## ## ## ## ##       ##     ## ##     ## ##     ## 
+ *    ##     ## ##  #### ##       ##     ## ######### ##     ## 
+ *    ##     ## ##   ### ##       ##     ## ##     ## ##     ## 
+ *     #######  ##    ## ########  #######  ##     ## ########  
+ */
+
 $(watchLogin);
 $(recordSubmit);
 $(addTrack);
 $(watchSignupLink);
 $(watchSignup);
+$(userCol);
+$(globalCol);
 $(watchSignupConfirm);
 $(watchAlbumModal);
 $(watchAlbumEdit);

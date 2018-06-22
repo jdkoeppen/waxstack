@@ -19,6 +19,13 @@
 
 <body>
     <main role="main">
+        <nav class="navbar navbar-dark hidden" style="background-color: #636362">
+            <a class="navbar-brand" href="#">Waxstack</a>
+            <div>
+                <button type="button" class="btn btn-primary alignright" id="globeCol">Database</button>
+                <button type="button" class="btn btn-primary alignright" id="myCol">My Collection</button>
+            </div>
+        </nav>
 
         <div role="banner" class="container divCentered logo" id="logo">
             <h1>Waxstack</h1>
@@ -105,13 +112,11 @@
         <!-- Main Buttons -->
         <div role="navigation" class="container hidden" id="navMain">
             <div>
-            <button type="button" class="btn btn-primary alignleft" id="addChecked" >Add Checked to My Collection</button>
+
+                <button type="button" class="btn btn-primary alignleft hidden" id="addChecked">Add Checked to My Collection</button>
             </div>
             <div>
-            <button type="button" class="btn btn-primary alignright" data-toggle="modal" data-target="#addRecordModal" id="addRecordBtn">Add New Record</button>
-            </div>
-            <div>
-            <button type="button" class="btn btn-primary alignright" id="myCol">My Collection</button>
+                <button type="button" class="btn btn-primary alignright" data-toggle="modal" data-target="#addRecordModal" id="addRecordBtn">Add New Record</button>
             </div>
         </div>
 
@@ -120,13 +125,15 @@
             <table role="table" class="tablesorter table table-striped  hidden" id="collectionTable">
                 <thead>
                     <tr>
-                        <th scope="col"><label for="checkAll">Select All</label><input id="checkAll" type="checkbox" role="checkbox">
-                        <th scope="col" id="artistHead">Artist</th>
-                        <th scope="col" id="albumHead">Album</th>
-                        <th scope="col" id="releaseHead">Released</th>
-                        <th scope="col" id="labelHead">Label</th>
-                        <th scope="col" id="genreHead">Genre</th>
-                        <th scope="col" id="formatHead">Format</th>
+                        <th scope="col">
+                            <label for="checkAll">Select All</label>
+                            <input id="checkAll" type="checkbox" role="checkbox">
+                            <th scope="col" id="artistHead">Artist</th>
+                            <th scope="col" id="albumHead">Album</th>
+                            <th scope="col" id="releaseHead">Released</th>
+                            <th scope="col" id="labelHead">Label</th>
+                            <th scope="col" id="genreHead">Genre</th>
+                            <th scope="col" id="formatHead">Format</th>
                     </tr>
                 </thead>
                 <tbody class="tableContent">
@@ -134,7 +141,7 @@
             </table>
         </div>
 
-              <!-- Album Display Modal -->
+        <!-- Album Display Modal -->
         <div class="modal modal-lg fade" id="albumModal" aria-labelledby="albumModalLabel" tabindex="-1" role="dialog">
             <div role="document" class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -187,6 +194,10 @@
             </div>
         </div>
 
+        <div class='container hidden' id='instructions'>
+            <h5>Welcome to your collection! It's completely empty! To start out, you can either enter a new record by clicking
+                "Add New Record", or search the database to see if your record has already been entered.</h5>
+        </div>
 
         <!-- New Entry Panel -->
         <div class="modal fade" id="addRecordModal" tabindex="-1" role="dialog" aria-labelledby="addRecordModalLabel">

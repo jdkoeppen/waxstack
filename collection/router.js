@@ -53,18 +53,18 @@ router.put("/", jsonParser, (req, res) => {
     });
 });
 
-// router.delete("/:id", (req, res) => {
-//   Record.remove({
-//       _id: req.params.id
-//     }, req.body)
-//     .then(function () {
-//       res.json({
-//         message: "Record Deleted"
-//       });
-//     })
-//     .catch(function (err) {
-//       res.send(err.message);
-//     });
-// });
+router.delete("/:id", (req, res) => {
+  Record.remove({
+      _id: req.params.id
+    }, req.body)
+    .then(function () {
+      res.json({
+        message: "Record Deleted"
+      });
+    })
+    .catch(function (err) {
+      res.send(err.message);
+    });
+});
 
 module.exports = router;
