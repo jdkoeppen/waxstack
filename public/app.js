@@ -1,13 +1,9 @@
+//Deprecated API for seeding database
+
 // const LASTFM_URL = "https://ws.audioscrobbler.com/2.0/";
 // const LASTFM_API = "493953a8e1e2743a17509153a4f85b8e";
 // const MATCH_URL = "http://api.musixmatch.com/ws/1.1/album.get";
 // const MATCH_API = "805a6e3e5f0a67743fd3508e57fcefc1";
-var globalCollection;
-var currentUser;
-var userCollection;
-var currentCollection;
-var currentAlbumId;
-
 /***
  *    ##     ## ######## #### ##        ######  
  *    ##     ##    ##     ##  ##       ##    ## 
@@ -17,6 +13,13 @@ var currentAlbumId;
  *    ##     ##    ##     ##  ##       ##    ## 
  *     #######     ##    #### ########  ######  
  */
+
+var globalCollection;
+var currentUser;
+var userCollection;
+var currentCollection;
+var currentAlbumId;
+
 
 $("#collectionTable").tablesorter({
   sortList: [
@@ -121,7 +124,7 @@ function watchLogin() {
       success: function (data) {
         localStorage.setItem('authToken', data.authToken)
         currentUser = data.user;
-        currentCollection = "user";
+        currentCollection = userCollection;
         $("#loginCard").addClass("hidden");
         $(".navbar").removeClass("hidden");
         $("#logo").addClass("hidden");
@@ -139,6 +142,23 @@ function watchLogin() {
     });
   });
 }
+
+/***
+ *    ##        #######   ######    #######  ##     ## ######## 
+ *    ##       ##     ## ##    ##  ##     ## ##     ##    ##    
+ *    ##       ##     ## ##        ##     ## ##     ##    ##    
+ *    ##       ##     ## ##   #### ##     ## ##     ##    ##    
+ *    ##       ##     ## ##    ##  ##     ## ##     ##    ##    
+ *    ##       ##     ## ##    ##  ##     ## ##     ##    ##    
+ *    ########  #######   ######    #######   #######     ##    
+ */
+
+ function watchLogout() {
+  $('#logout').on('click', function(event) {
+    localStorage.removeItem("TOKEN");
+    location.reload();
+  })
+ }
 
 /***
  *    ##     ##  ######  ######## ########  
@@ -280,8 +300,8 @@ function watchCheck() {
       let box = $(this).find("input[type='checkbox']");
       if (box.length) {
         box.prop("checked", !box.prop("checked"));
+        }
       }
-    }
   );
 }
 
@@ -639,6 +659,9 @@ function recordSubmit() {
   });
 }
 
+
+
+
 /***
  *     #######  ##    ## ##        #######     ###    ########  
  *    ##     ## ###   ## ##       ##     ##   ## ##   ##     ## 
@@ -650,6 +673,7 @@ function recordSubmit() {
  */
 
 $(watchLogin);
+$(watchLogout);
 $(recordSubmit);
 $(addTrack);
 $(watchSignupLink);

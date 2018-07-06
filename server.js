@@ -34,6 +34,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 app.use('/api/users/', usersRouter);
 app.use('/api/records/', jwtAuth, recordRouter);
 app.use('/api/auth/', authRouter);
+app.use('/api/logout/', authRouter);
 app.use('/api/collection/', jwtAuth, collectionRouter) 
 
 app.use(express.static("public"));

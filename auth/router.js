@@ -68,6 +68,11 @@ router.post('/refresh', jwtAuth, (req, res) => {
   });
 });
 
+router.post('/logout', (req, res) => {
+  req.logout();
+  req.redirect('/');
+});
+
 module.exports = {
   router
 };
