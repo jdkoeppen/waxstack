@@ -54,7 +54,7 @@ router.put("/", jsonParser, (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  Record.remove({
+  Collection.remove({
       _id: req.params.id
     }, req.body)
     .then(function () {

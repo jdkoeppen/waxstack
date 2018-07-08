@@ -257,6 +257,7 @@ function globalCol() {
     currentCollection = globalCollection;
     $(".tableContent").empty();
     renderCollection()
+
   })
 }
 
@@ -301,18 +302,21 @@ function watchCheck() {
       if (box.length) {
         box.prop("checked", !box.prop("checked"));
         }
+        $('#addChecked').show();
       }
   );
 }
 
-function watchCheckAll() {
-  $("table").on("change", "#checkAll", function (event) {
-    $('td.checkable input[type="checkbox"]').prop(
-      "checked",
-      $(this).prop("checked")
-    );
-  });
-}
+// function watchCheckAll() {
+//   $("table").on("change", "#checkAll", function (event) {
+//     $('td.checkable input[type="checkbox"]').prop(
+//       "checked",
+//       $(this).prop("checked")
+//     );
+//     $('#addChecked').toggle();
+
+//   });
+// }
 
 /***
  *       ###    ########  ########  
@@ -602,7 +606,7 @@ function addTrack() {
 
 function recordSubmit() {
   $("#addRecord").submit(function (event) {
-    let URL = "/api/records";
+    let URL = "/api/collection";
     event.preventDefault();
     let data = {};
     let input = $(this).serializeArray();
@@ -684,5 +688,5 @@ $(watchSignupConfirm);
 $(watchAlbumModal);
 $(watchAlbumEdit);
 $(watchCheck);
-$(watchCheckAll);
+// $(watchCheckAll);
 $(watchAdd);
