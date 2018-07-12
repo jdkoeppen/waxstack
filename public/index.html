@@ -19,18 +19,31 @@
 
 <body>
     <main role="main">
-        <nav class="navbar navbar-dark hidden" style="background-color: #636362">
+        <nav class="navbar navbar-expand-sm navbar-dark hidden" style="background-color: #4F4944">
             <a class="navbar-brand" href="#">Waxstack</a>
-            <div>
-                <button type="button" class="btn btn-primary alignright" id="logout">Log Out</button>
-                <button type="button" class="btn btn-primary alignright" id="globeCol">Database</button>
-                <button type="button" class="btn btn-primary alignright" id="myCol">My Collection</button>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarTogglerDemo02"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto mt-2 mt-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" id="myCol" href="#">My Collection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="globeCol" href="#">Database</a>
+                    </li>
+                </ul>
+<a class="nav-link" id=" logout " href="# ">Log Out</a>
             </div>
         </nav>
 
         <div role="banner" class="container divCentered logo" id="logo">
             <h1>Waxstack</h1>
-            <p style="color:white">A Painfully Manual Music Database</p>
+            <p style="color:white">Welcome to Waxstack, a personal record collection database. Waxstack lets you catalog your albums and keep track
+                of what sweet tunes you own. You can enter records yourself, or look through the database and add records
+                other users have already cataloged. Please login or sign up to visit your collection. </p>
         </div>
 
         <!-- Login Panel -->
@@ -125,13 +138,31 @@
             <table role="table" class="tablesorter table table-striped  hidden" id="collectionTable">
                 <thead>
                     <tr>
-                        <th scope="col"></th>                           
-                            <th scope="col" id="artistHead">Artist</th>
-                            <th scope="col" id="albumHead">Album</th>
-                            <th scope="col" id="releaseHead">Released</th>
-                            <th scope="col" id="labelHead">Label</th>
-                            <th scope="col" id="genreHead">Genre</th>
-                            <th scope="col" id="formatHead">Format</th>
+                        <th scope="col"></th>
+                        <th scope="col" id="artistHead">Artist
+                            <i class="fas fa-angle-up"></i>
+                            <i class="fas fa-angle-down"></i>
+                        </th>
+                        <th scope="col" id="albumHead">Album
+                            <i class="fas fa-angle-up"></i>
+                            <i class="fas fa-angle-down"></i>
+                        </th>
+                        <th scope="col" id="releaseHead">Released
+                            <i class="fas fa-angle-up"></i>
+                            <i class="fas fa-angle-down"></i>
+                        </th>
+                        <th scope="col" id="labelHead">Label
+                            <i class="fas fa-angle-up"></i>
+                            <i class="fas fa-angle-down"></i>
+                        </th>
+                        <th scope="col" id="genreHead">Genre
+                            <i class="fas fa-angle-up"></i>
+                            <i class="fas fa-angle-down"></i>
+                        </th>
+                        <th scope="col" id="formatHead">Format
+                            <i class="fas fa-angle-up"></i>
+                            <i class="fas fa-angle-down"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="tableContent">

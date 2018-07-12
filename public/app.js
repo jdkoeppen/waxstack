@@ -302,7 +302,9 @@ function watchCheck() {
       if (box.length) {
         box.prop("checked", !box.prop("checked"));
         }
+        if(currentCollection === globalCollection) {
         $('#addChecked').show();
+        };
       }
   );
 }
@@ -538,7 +540,7 @@ function watchAlbumEdit() {
     let authToken = localStorage.getItem('authToken')
 
     $.ajax({
-      url: `/api/collection/${currentAlbumId}`,
+      url: `/api/collection/`,
       xhrFields: {
         withCredentials: true
       },

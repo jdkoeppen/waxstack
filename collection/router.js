@@ -53,10 +53,10 @@ router.put("/", jsonParser, (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
-  Collection.remove({
-      _id: req.params.id
-    }, req.body)
+router.delete("/", (req, res) => {
+  Collection.findByIdAndRemove(
+    req.body
+    )
     .then(function () {
       res.json({
         message: "Record Deleted"

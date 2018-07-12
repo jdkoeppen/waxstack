@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
 }
@@ -43,14 +42,29 @@ h5 {
     font-style: italic;
 }
 
+.btn-primary:hover {
+    transform: scale(1.1);
+}
+
 .navbar {
     margin-bottom: 50px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .navbar-brand {
     font-family: 'Dancing Script';
     color: white;
+    background-color: #7EBDC2;
+    border-radius: 5px;
+    padding: 2px 9px;
     font-size: 1.8em;
+}
+
+#logout {
+    display: block;
+    color: rgba(255, 255, 255, 0.5);
+    padding-right: 0;
+    padding-left: 0;
 }
 
 #instructions {
@@ -59,8 +73,7 @@ h5 {
     background-color: lightgray;
     padding: 20px;
     margin-top: 100px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 input[type=checkbox] {
@@ -95,7 +108,7 @@ input[type=checkbox] {
 }
 
 .modal-header {
-    background-color: gold;
+    background-color: #FFC857;
     border-bottom: none;
 }
 
@@ -104,9 +117,8 @@ input[type=checkbox] {
     /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
-    }
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 
 #signupLink {
     color: #4F4944;
@@ -124,9 +136,8 @@ input[type=checkbox] {
     /* border-radius: 5px; */
     background-color: lightgray;
     margin: 0 auto;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
-    }
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 
 #signupConf {
     align-content: center;
@@ -153,12 +164,11 @@ input[type=checkbox] {
     /* padding-top: 15px; */
     padding-bottom: 15px;
     /* border-radius: 5px; */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
-    }
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 
 #collectionTable thead {
-    background-color: gold;
+    background-color: #FFC857;
     color: #4F4944;
     font-family: 'Lato';
     /* font-size: 1.5em; */
@@ -169,19 +179,14 @@ input[type=checkbox] {
     border: 3px solid lightgrey;
 }
 
-#collectionTable th:hover {
-    text-decoration: underline;
+#collectionTable tbody tr:hover {
+    background-color: #7EBDC2;
     cursor: pointer;
 }
 
 #collectionTable td {
     /* font-size: 1.4em; */
     color: black;
-}
-
-#collectionTable td:hover {
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 #navMain {
@@ -203,13 +208,12 @@ input[type=checkbox] {
     padding-top: 15px;
     padding-bottom: 15px;
     border-radius: 0 0 5px 5px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
-    }
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 
 .card-header {
     height: 50px;
-    background-color: gold;
+    background-color: #FFC857;
 }
 
 /* @media (min-width: 620px) {
@@ -225,17 +229,16 @@ input[type=checkbox] {
     background-attachment: fixed;
     background-image: url('assets/nocover.png');
     margin-bottom: 15px;
-    width: 80%;
+    width: 70%;
 }
 
 #aModalImg {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19),
-    0 6px 6px rgba(0, 0, 0, 0.23);
-    }
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
 
 .cover {
     margin-bottom: 15px;
-    width: 80%;
+    width: 70%;
 }
 
 #addRecordSubmit,
@@ -384,21 +387,24 @@ div.input-group-option {
 	Label the data
 	*/
     td:nth-of-type(1):before {
-        content: "Artist";
+        content: "Select";
     }
     td:nth-of-type(2):before {
-        content: "Album";
+        content: "Artist";
     }
     td:nth-of-type(3):before {
-        content: "Released";
+        content: "Album";
     }
     td:nth-of-type(4):before {
-        content: "Label";
+        content: "Released";
     }
     td:nth-of-type(5):before {
-        content: "Genre";
+        content: "Label";
     }
     td:nth-of-type(6):before {
+        content: "Genre";
+    }
+    td:nth-of-type(7):before {
         content: "Format";
     }
 }
