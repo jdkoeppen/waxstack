@@ -153,12 +153,12 @@ function watchLogin() {
  *    ########  #######   ######    #######   #######     ##    
  */
 
- function watchLogout() {
-  $('#logout').on('click', function(event) {
+function watchLogout() {
+  $('#logout').on('click', function (event) {
     localStorage.removeItem("TOKEN");
     location.reload();
   })
- }
+}
 
 /***
  *    ##     ##  ######  ######## ########  
@@ -301,11 +301,11 @@ function watchCheck() {
       let box = $(this).find("input[type='checkbox']");
       if (box.length) {
         box.prop("checked", !box.prop("checked"));
-        }
-        if(currentCollection === globalCollection) {
-        $('#addChecked').show();
-        };
       }
+      if (currentCollection === globalCollection) {
+        $('#addChecked').show();
+      };
+    }
   );
 }
 
@@ -424,7 +424,7 @@ function watchAlbumModal() {
     var selection = $(event.relatedTarget);
     var x = selection.data("idx");
     var elem =
-     currentCollection.records[x];
+      currentCollection.records[x];
     currentAlbumId = elem._id;
     var noCover = "assets/nocover.png";
     var cover = elem.cover ? elem.cover : noCover;
@@ -515,7 +515,7 @@ function watchAlbumEdit() {
           title: "Saved",
           message: "Updates Saved Successfully."
         });
-        cacheCollection().then(getUserCol).then(function () {
+        cacheCollection().then(function () {
           $("#collectionTable").trigger("update")
         });
       },
@@ -559,7 +559,7 @@ function watchAlbumEdit() {
         });
         albumEditOff();
         $("#albumModal").modal("hide");
-        cacheCollection().then(getUserCol).then(function () {
+        cacheCollection().then(function () {
           $("#collectionTable").trigger("update")
         });
       },
@@ -644,7 +644,7 @@ function recordSubmit() {
         console.log("success");
         alert("Record Added");
         $("#addRecordModal").modal("hide");
-        cacheCollection().then(getUserCol).then(function () {
+        cacheCollection().then(function () {
           $("#collectionTable").trigger("update")
         });
       },
