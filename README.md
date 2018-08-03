@@ -20,7 +20,6 @@ Waxstack is served by Heroku and the database is hosted by mLab.
 
 ## Built With
 
-* [Bootstrap](https://getbootstrap.com/) - The front-end component library 
 * [Tablesorter](http://tablesorter.com/docs/) - jQuery table sorting plugin
 
 ## Authors
