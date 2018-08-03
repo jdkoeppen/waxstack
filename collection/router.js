@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   return Collection.findOne({
-    userId: req.user.id
-  })
+      userId: req.user.id
+    })
     .populate("records")
     .then(collection => {
       res.json(collection);
@@ -41,7 +41,11 @@ router.put("/", jsonParser, (req, res) => {
   Collection.findOneAndUpdate({
       userId: req.user.id
     }, {
-     $addToSet: {records: {$each: req.body}}
+      $addToSet: {
+        records: {
+          $each: req.body
+        }
+      }
     }, {
       new: true
     })
@@ -53,10 +57,14 @@ router.put("/", jsonParser, (req, res) => {
     });
 });
 
-router.delete("/", (req, res) => {
-  Collection.findByIdAndRemove(
-    req.body
-    )
+router.delete("/:albumId", (req, res) => {
+  Collection.findOneAndUpdate({
+      userId: req.user.id
+    }, {
+      $pull: {
+        records: req.params.albumId
+      }
+    })
     .then(function () {
       res.json({
         message: "Record Deleted"

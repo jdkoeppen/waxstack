@@ -5,13 +5,13 @@
 // const MATCH_URL = "http://api.musixmatch.com/ws/1.1/album.get";
 // const MATCH_API = "805a6e3e5f0a67743fd3508e57fcefc1";
 /***
- *    ##     ## ######## #### ##        ######  
- *    ##     ##    ##     ##  ##       ##    ## 
- *    ##     ##    ##     ##  ##       ##       
- *    ##     ##    ##     ##  ##        ######  
- *    ##     ##    ##     ##  ##             ## 
- *    ##     ##    ##     ##  ##       ##    ## 
- *     #######     ##    #### ########  ######  
+ *    ##     ## ######## #### ##        ######
+ *    ##     ##    ##     ##  ##       ##    ##
+ *    ##     ##    ##     ##  ##       ##
+ *    ##     ##    ##     ##  ##        ######
+ *    ##     ##    ##     ##  ##             ##
+ *    ##     ##    ##     ##  ##       ##    ##
+ *     #######     ##    #### ########  ######
  */
 
 var globalCollection;
@@ -20,7 +20,6 @@ var userCollection;
 var currentCollection;
 var currentAlbumId;
 
-
 $("#collectionTable").tablesorter({
   sortList: [
     [0, 0],
@@ -28,20 +27,19 @@ $("#collectionTable").tablesorter({
   ]
 });
 
-
 /***
- *     ######  ####  ######   ##    ## ##     ## ########  
- *    ##    ##  ##  ##    ##  ###   ## ##     ## ##     ## 
- *    ##        ##  ##        ####  ## ##     ## ##     ## 
- *     ######   ##  ##   #### ## ## ## ##     ## ########  
- *          ##  ##  ##    ##  ##  #### ##     ## ##        
- *    ##    ##  ##  ##    ##  ##   ### ##     ## ##        
- *     ######  ####  ######   ##    ##  #######  ##        
+ *     ######  ####  ######   ##    ## ##     ## ########
+ *    ##    ##  ##  ##    ##  ###   ## ##     ## ##     ##
+ *    ##        ##  ##        ####  ## ##     ## ##     ##
+ *     ######   ##  ##   #### ## ## ## ##     ## ########
+ *          ##  ##  ##    ##  ##  #### ##     ## ##
+ *    ##    ##  ##  ##    ##  ##   ### ##     ## ##
+ *     ######  ####  ######   ##    ##  #######  ##
  */
-
 
 function watchSignupLink() {
   $("#signupLink").click(function (event) {
+    userCollection = null;
     $("#loginCard").addClass("hidden");
     $("#signupCard").removeClass("hidden");
   });
@@ -97,13 +95,13 @@ function watchSignupConfirm() {
 }
 
 /***
- *    ##        #######   ######   #### ##    ## 
- *    ##       ##     ## ##    ##   ##  ###   ## 
- *    ##       ##     ## ##         ##  ####  ## 
- *    ##       ##     ## ##   ####  ##  ## ## ## 
- *    ##       ##     ## ##    ##   ##  ##  #### 
- *    ##       ##     ## ##    ##   ##  ##   ### 
- *    ########  #######   ######   #### ##    ## 
+ *    ##        #######   ######   #### ##    ##
+ *    ##       ##     ## ##    ##   ##  ###   ##
+ *    ##       ##     ## ##         ##  ####  ##
+ *    ##       ##     ## ##   ####  ##  ## ## ##
+ *    ##       ##     ## ##    ##   ##  ##  ####
+ *    ##       ##     ## ##    ##   ##  ##   ###
+ *    ########  #######   ######   #### ##    ##
  */
 
 function watchLogin() {
@@ -122,7 +120,7 @@ function watchLogin() {
       type: "POST",
       data: JSON.stringify(data),
       success: function (data) {
-        localStorage.setItem('authToken', data.authToken)
+        localStorage.setItem("authToken", data.authToken);
         currentUser = data.user;
         currentCollection = userCollection;
         $("#loginCard").addClass("hidden");
@@ -132,7 +130,7 @@ function watchLogin() {
         $("#collectionDiv").removeClass("hidden");
         $("#collectionTable").removeClass("hidden");
 
-        cacheCollection().then(getUserCol);
+        cacheDatabase().then(getUserCol);
       },
       error: function (error) {
         let responseMessage = "Incorrect username or password.";
@@ -144,35 +142,42 @@ function watchLogin() {
 }
 
 /***
- *    ##        #######   ######    #######  ##     ## ######## 
- *    ##       ##     ## ##    ##  ##     ## ##     ##    ##    
- *    ##       ##     ## ##        ##     ## ##     ##    ##    
- *    ##       ##     ## ##   #### ##     ## ##     ##    ##    
- *    ##       ##     ## ##    ##  ##     ## ##     ##    ##    
- *    ##       ##     ## ##    ##  ##     ## ##     ##    ##    
- *    ########  #######   ######    #######   #######     ##    
+ *    ##        #######   ######    #######  ##     ## ########
+ *    ##       ##     ## ##    ##  ##     ## ##     ##    ##
+ *    ##       ##     ## ##        ##     ## ##     ##    ##
+ *    ##       ##     ## ##   #### ##     ## ##     ##    ##
+ *    ##       ##     ## ##    ##  ##     ## ##     ##    ##
+ *    ##       ##     ## ##    ##  ##     ## ##     ##    ##
+ *    ########  #######   ######    #######   #######     ##
  */
 
 function watchLogout() {
-  $('#logout').on('click', function (event) {
+  $("#logout").on("click", function (event) {
     localStorage.removeItem("TOKEN");
-    location.reload();
-  })
+    $("#loginCard").removeClass("hidden");
+    $(".navbar").addClass("hidden");
+    $("#logo").removeClass("hidden");
+    $("#navMain").addClass("hidden");
+    $("#collectionDiv").addClass("hidden");
+    $("#collectionTable").addClass("hidden");
+    userCollection = null
+    currentCollection = null
+  });
 }
 
 /***
- *    ##     ##  ######  ######## ########  
- *    ##     ## ##    ## ##       ##     ## 
- *    ##     ## ##       ##       ##     ## 
- *    ##     ##  ######  ######   ########  
- *    ##     ##       ## ##       ##   ##   
- *    ##     ## ##    ## ##       ##    ##  
- *     #######   ######  ######## ##     ## 
+ *    ##     ##  ######  ######## ########
+ *    ##     ## ##    ## ##       ##     ##
+ *    ##     ## ##       ##       ##     ##
+ *    ##     ##  ######  ######   ########
+ *    ##     ##       ## ##       ##   ##
+ *    ##     ## ##    ## ##       ##    ##
+ *     #######   ######  ######## ##     ##
  */
 
 function getUserCol() {
-  let URL = "/api/collection"
-  let authToken = localStorage.getItem('authToken')
+  let URL = "/api/collection";
+  let authToken = localStorage.getItem("authToken");
   $.ajax({
     xhrFields: {
       withCredentials: true
@@ -198,21 +203,19 @@ function getUserCol() {
 //   return recordIds.map(recordId => collection.find(record => record._id === recordId)).filter(Boolean)
 // }
 
-
 /***
- *     ######     ###     ######  ##     ## ######## 
- *    ##    ##   ## ##   ##    ## ##     ## ##       
- *    ##        ##   ##  ##       ##     ## ##       
- *    ##       ##     ## ##       ######### ######   
- *    ##       ######### ##       ##     ## ##       
- *    ##    ## ##     ## ##    ## ##     ## ##       
- *     ######  ##     ##  ######  ##     ## ######## 
+ *     ######     ###     ######  ##     ## ########
+ *    ##    ##   ## ##   ##    ## ##     ## ##
+ *    ##        ##   ##  ##       ##     ## ##
+ *    ##       ##     ## ##       ######### ######
+ *    ##       ######### ##       ##     ## ##
+ *    ##    ## ##     ## ##    ## ##     ## ##
+ *     ######  ##     ##  ######  ##     ## ########
  */
 
-
-function cacheCollection() {
+function cacheDatabase() {
   let URL = "/api/records";
-  let authToken = localStorage.getItem('authToken')
+  let authToken = localStorage.getItem("authToken");
 
   return $.ajax({
     xhrFields: {
@@ -234,63 +237,91 @@ function cacheCollection() {
   });
 }
 
+function cacheCollection() {
+  let URL = "/api/collection";
+  let authToken = localStorage.getItem("authToken");
+
+  return $.ajax({
+    xhrFields: {
+      withCredentials: true
+    },
+    contentType: "application/json",
+    url: URL,
+    type: "GET",
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    },
+    success: function (data) {
+      userCollection = data;
+      renderCollection();
+    },
+    error: function () {
+      console.log("error");
+    }
+  });
+}
+
 /***
- *    ########  ######## ##    ## ########  ######## ########  
- *    ##     ## ##       ###   ## ##     ## ##       ##     ## 
- *    ##     ## ##       ####  ## ##     ## ##       ##     ## 
- *    ########  ######   ## ## ## ##     ## ######   ########  
- *    ##   ##   ##       ##  #### ##     ## ##       ##   ##   
- *    ##    ##  ##       ##   ### ##     ## ##       ##    ##  
- *    ##     ## ######## ##    ## ########  ######## ##     ## 
+ *    ########  ######## ##    ## ########  ######## ########
+ *    ##     ## ##       ###   ## ##     ## ##       ##     ##
+ *    ##     ## ##       ####  ## ##     ## ##       ##     ##
+ *    ########  ######   ## ## ## ##     ## ######   ########
+ *    ##   ##   ##       ##  #### ##     ## ##       ##   ##
+ *    ##    ##  ##       ##   ### ##     ## ##       ##    ##
+ *    ##     ## ######## ##    ## ########  ######## ##     ##
  */
 
-
 function instructions() {
-  if (!userCollection) {
-    $('#instructions').removeClass('hidden')
+  if (userCollection.records.length === 0) {
+    $("#instructions").removeClass("hidden");
   }
 }
 
 function globalCol() {
-  $('#globeCol').on('click', function (event) {
+  $("#globeCol").on("click", function (event) {
     event.preventDefault();
     currentCollection = globalCollection;
     $(".tableContent").empty();
-    renderCollection()
-
-  })
+    renderCollection();
+  });
 }
 
 function userCol() {
-  $('#myCol').on('click', function (event) {
+  $("#myCol").on("click", function (event) {
     event.preventDefault();
     currentCollection = userCollection;
     $(".tableContent").empty();
-    renderCollection()
-    $('#addChecked').addClass('hidden');
-
-  })
+    renderCollection();
+    $("#addChecked").hide()
+  });
 }
 
 function renderCollection() {
   $(".tableContent").empty();
   $.each(currentCollection.records, function (index, elem) {
-    $("tbody").append(`<tr data-toggle='modal' data-target='#albumModal' data-idx='${index}' data-id='${elem._id}'><td class='checkable' ><input type='checkbox' role='checkbox' </td><td>${elem.artist}</td><td>${elem.album}</td><td>${elem.release}</td><td>${elem.label}</td><td>${elem.genre}</td><td>${elem.format}</td></tr>`);
+    $("tbody").append(
+      `<tr data-toggle='modal' data-target='#albumModal' data-idx='${index}' data-id='${
+        elem._id
+      }'><td class='checkable' ><input type='checkbox' role='checkbox' </td><td>${
+        elem.artist
+      }</td><td>${elem.album}</td><td>${elem.release}</td><td>${
+        elem.label
+      }</td><td>${elem.genre}</td><td>${elem.format}</td></tr>`
+    );
   });
-  instructions()
-  $("#collectionTable").trigger("update")
+  instructions();
+  $("#collectionTable").trigger("update");
 }
 
 /***
- *     ######  ##     ## ########  ######  ##    ##  ######  
- *    ##    ## ##     ## ##       ##    ## ##   ##  ##    ## 
- *    ##       ##     ## ##       ##       ##  ##   ##       
- *    ##       ######### ######   ##       #####     ######  
- *    ##       ##     ## ##       ##       ##  ##         ## 
- *    ##    ## ##     ## ##       ##    ## ##   ##  ##    ## 
- *     ######  ##     ## ########  ######  ##    ##  ######  
+ *     ######  ##     ## ########  ######  ##    ##  ######
+ *    ##    ## ##     ## ##       ##    ## ##   ##  ##    ##
+ *    ##       ##     ## ##       ##       ##  ##   ##
+ *    ##       ######### ######   ##       #####     ######
+ *    ##       ##     ## ##       ##       ##  ##         ##
+ *    ##    ## ##     ## ##       ##    ## ##   ##  ##    ##
+ *     ######  ##     ## ########  ######  ##    ##  ######
  */
-
 
 function watchCheck() {
   $("table").on(
@@ -303,8 +334,8 @@ function watchCheck() {
         box.prop("checked", !box.prop("checked"));
       }
       if (currentCollection === globalCollection) {
-        $('#addChecked').show();
-      };
+        $("#addChecked").show();
+      }
     }
   );
 }
@@ -321,13 +352,13 @@ function watchCheck() {
 // }
 
 /***
- *       ###    ########  ########  
- *      ## ##   ##     ## ##     ## 
- *     ##   ##  ##     ## ##     ## 
- *    ##     ## ##     ## ##     ## 
- *    ######### ##     ## ##     ## 
- *    ##     ## ##     ## ##     ## 
- *    ##     ## ########  ########  
+ *       ###    ########  ########
+ *      ## ##   ##     ## ##     ##
+ *     ##   ##  ##     ## ##     ##
+ *    ##     ## ##     ## ##     ##
+ *    ######### ##     ## ##     ##
+ *    ##     ## ##     ## ##     ##
+ *    ##     ## ########  ########
  */
 
 function watchAdd() {
@@ -344,12 +375,14 @@ function watchAdd() {
       });
     }
     selected.each(function () {
-      let rowId = $(this).closest('tr').attr("data-id");
+      let rowId = $(this)
+        .closest("tr")
+        .attr("data-id");
       recordIds.push(rowId);
     });
     console.log(recordIds);
 
-    let authToken = localStorage.getItem('authToken')
+    let authToken = localStorage.getItem("authToken");
 
     $.ajax({
       url: `/api/collection/`,
@@ -369,9 +402,12 @@ function watchAdd() {
           size: "large",
           style: "notice",
           title: "Records Added",
-          message: `${recordIds.length} Selections Added to Your Collection Successfully.`
+          message: `${
+            recordIds.length
+          } Selections Added to Your Collection Successfully.`
         });
-        getUserCol().then(renderCollection)
+        cacheCollection()
+
       },
       error: function () {
         console.log("error", recordIds);
@@ -381,13 +417,13 @@ function watchAdd() {
 }
 
 /***
- *    ######## ########  #### ######## 
- *    ##       ##     ##  ##     ##    
- *    ##       ##     ##  ##     ##    
- *    ######   ##     ##  ##     ##    
- *    ##       ##     ##  ##     ##    
- *    ##       ##     ##  ##     ##    
- *    ######## ########  ####    ##    
+ *    ######## ########  #### ########
+ *    ##       ##     ##  ##     ##
+ *    ##       ##     ##  ##     ##
+ *    ######   ##     ##  ##     ##
+ *    ##       ##     ##  ##     ##
+ *    ##       ##     ##  ##     ##
+ *    ######## ########  ####    ##
  */
 
 function albumEditOn() {
@@ -410,21 +446,20 @@ function albumEditOff() {
 }
 
 /***
- *    ##     ## #### ######## ##      ## 
- *    ##     ##  ##  ##       ##  ##  ## 
- *    ##     ##  ##  ##       ##  ##  ## 
- *    ##     ##  ##  ######   ##  ##  ## 
- *     ##   ##   ##  ##       ##  ##  ## 
- *      ## ##    ##  ##       ##  ##  ## 
- *       ###    #### ########  ###  ###  
+ *    ##     ## #### ######## ##      ##
+ *    ##     ##  ##  ##       ##  ##  ##
+ *    ##     ##  ##  ##       ##  ##  ##
+ *    ##     ##  ##  ######   ##  ##  ##
+ *     ##   ##   ##  ##       ##  ##  ##
+ *      ## ##    ##  ##       ##  ##  ##
+ *       ###    #### ########  ###  ###
  */
 
 function watchAlbumModal() {
   $("#albumModal").on("show.bs.modal", function (event) {
     var selection = $(event.relatedTarget);
     var x = selection.data("idx");
-    var elem =
-      currentCollection.records[x];
+    var elem = currentCollection.records[x];
     currentAlbumId = elem._id;
     var noCover = "assets/nocover.png";
     var cover = elem.cover ? elem.cover : noCover;
@@ -441,7 +476,9 @@ function watchAlbumModal() {
       modal
         .find("#aModalTracks")
         .append(
-          `<li><input type='text' readonly class='form-control-plaintext editable' value='${name.name}'</input></li>`
+          `<li><input type='text' readonly class='form-control-plaintext editable' value='${
+            name.name
+          }'</input></li>`
         );
     });
   });
@@ -467,13 +504,13 @@ function watchAlbumEdit() {
   });
 
   /***
-   *     ######     ###    ##     ## ######## 
-   *    ##    ##   ## ##   ##     ## ##       
-   *    ##        ##   ##  ##     ## ##       
-   *     ######  ##     ## ##     ## ######   
-   *          ## #########  ##   ##  ##       
-   *    ##    ## ##     ##   ## ##   ##       
-   *     ######  ##     ##    ###    ######## 
+   *     ######     ###    ##     ## ########
+   *    ##    ##   ## ##   ##     ## ##
+   *    ##        ##   ##  ##     ## ##
+   *     ######  ##     ## ##     ## ###### 
+   *          ## #########  ##   ##  ##
+   *    ##    ## ##     ##   ## ##   ##
+   *     ######  ##     ##    ###    ########
    */
 
   $("#albumModal").on("click", "#aModalSave", function (event) {
@@ -492,7 +529,7 @@ function watchAlbumEdit() {
         data[this.name] = this.value || "";
       }
     });
-    let authToken = localStorage.getItem('authToken')
+    let authToken = localStorage.getItem("authToken");
 
     $.ajax({
       url: `/api/records/${currentAlbumId}`,
@@ -515,9 +552,12 @@ function watchAlbumEdit() {
           title: "Saved",
           message: "Updates Saved Successfully."
         });
-        cacheCollection().then(function () {
-          $("#collectionTable").trigger("update")
-        });
+        cacheDatabase()
+        cacheCollection()
+          .then(renderCollection)
+          .then(function () {
+            $("#collectionTable").trigger("update");
+          });
       },
       error: function () {
         console.log("error", data);
@@ -526,21 +566,21 @@ function watchAlbumEdit() {
   });
 
   /***
-   *    ########  ######## ##       ######## ######## ######## 
-   *    ##     ## ##       ##       ##          ##    ##       
-   *    ##     ## ##       ##       ##          ##    ##       
-   *    ##     ## ######   ##       ######      ##    ######   
-   *    ##     ## ##       ##       ##          ##    ##       
-   *    ##     ## ##       ##       ##          ##    ##       
-   *    ########  ######## ######## ########    ##    ######## 
+   *    ########  ######## ##       ######## ######## ########
+   *    ##     ## ##       ##       ##          ##    ##
+   *    ##     ## ##       ##       ##          ##    ##
+   *    ##     ## ######   ##       ######      ##    ######
+   *    ##     ## ##       ##       ##          ##    ##
+   *    ##     ## ##       ##       ##          ##    ##
+   *    ########  ######## ######## ########    ##    ########
    */
 
   $("#albumModal").on("click", "#aModalDelete", function (event) {
     event.preventDefault();
-    let authToken = localStorage.getItem('authToken')
+    let authToken = localStorage.getItem("authToken");
 
     $.ajax({
-      url: `/api/collection/`,
+      url: `/api/collection/${currentAlbumId}`,
       xhrFields: {
         withCredentials: true
       },
@@ -559,9 +599,8 @@ function watchAlbumEdit() {
         });
         albumEditOff();
         $("#albumModal").modal("hide");
-        cacheCollection().then(function () {
-          $("#collectionTable").trigger("update")
-        });
+        cacheDatabase()
+        cacheCollection()
       },
       error: function () {
         console.log("error");
@@ -571,13 +610,13 @@ function watchAlbumEdit() {
 }
 
 /***
- *    ######## ########     ###     ######  ##    ## 
- *       ##    ##     ##   ## ##   ##    ## ##   ##  
- *       ##    ##     ##  ##   ##  ##       ##  ##   
- *       ##    ########  ##     ## ##       #####    
- *       ##    ##   ##   ######### ##       ##  ##   
- *       ##    ##    ##  ##     ## ##    ## ##   ##  
- *       ##    ##     ## ##     ##  ######  ##    ## 
+ *    ######## ########     ###     ######  ##    ##
+ *       ##    ##     ##   ## ##   ##    ## ##   ##
+ *       ##    ##     ##  ##   ##  ##       ##  ##
+ *       ##    ########  ##     ## ##       #####
+ *       ##    ##   ##   ######### ##       ##  ##
+ *       ##    ##    ##  ##     ## ##    ## ##   ##
+ *       ##    ##     ## ##     ##  ######  ##    ##
  */
 
 function addTrack() {
@@ -597,13 +636,13 @@ function addTrack() {
 }
 
 /***
- *    ##    ## ######## ##      ## 
- *    ###   ## ##       ##  ##  ## 
- *    ####  ## ##       ##  ##  ## 
- *    ## ## ## ######   ##  ##  ## 
- *    ##  #### ##       ##  ##  ## 
- *    ##   ### ##       ##  ##  ## 
- *    ##    ## ########  ###  ###  
+ *    ##    ## ######## ##      ##
+ *    ###   ## ##       ##  ##  ##
+ *    ####  ## ##       ##  ##  ##
+ *    ## ## ## ######   ##  ##  ##
+ *    ##  #### ##       ##  ##  ##
+ *    ##   ### ##       ##  ##  ##
+ *    ##    ## ########  ###  ###
  */
 
 function recordSubmit() {
@@ -627,7 +666,7 @@ function recordSubmit() {
       rank: rank + 1
     }));
     console.log(data);
-    let authToken = localStorage.getItem('authToken')
+    let authToken = localStorage.getItem("authToken");
 
     $.ajax({
       url: URL,
@@ -644,8 +683,8 @@ function recordSubmit() {
         console.log("success");
         alert("Record Added");
         $("#addRecordModal").modal("hide");
-        cacheCollection().then(function () {
-          $("#collectionTable").trigger("update")
+        cacheDatabase().then(function () {
+          $("#collectionTable").trigger("update");
         });
       },
       error: function () {
@@ -665,17 +704,14 @@ function recordSubmit() {
   });
 }
 
-
-
-
 /***
- *     #######  ##    ## ##        #######     ###    ########  
- *    ##     ## ###   ## ##       ##     ##   ## ##   ##     ## 
- *    ##     ## ####  ## ##       ##     ##  ##   ##  ##     ## 
- *    ##     ## ## ## ## ##       ##     ## ##     ## ##     ## 
- *    ##     ## ##  #### ##       ##     ## ######### ##     ## 
- *    ##     ## ##   ### ##       ##     ## ##     ## ##     ## 
- *     #######  ##    ## ########  #######  ##     ## ########  
+ *     #######  ##    ## ##        #######     ###    ########
+ *    ##     ## ###   ## ##       ##     ##   ## ##   ##     ##
+ *    ##     ## ####  ## ##       ##     ##  ##   ##  ##     ##
+ *    ##     ## ## ## ## ##       ##     ## ##     ## ##     ##
+ *    ##     ## ##  #### ##       ##     ## ######### ##     ##
+ *    ##     ## ##   ### ##       ##     ## ##     ## ##     ##
+ *     #######  ##    ## ########  #######  ##     ## ########
  */
 
 $(watchLogin);
