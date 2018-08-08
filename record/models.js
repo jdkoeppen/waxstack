@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const recordSchema = new mongoose.Schema({
@@ -8,14 +8,14 @@ const recordSchema = new mongoose.Schema({
   label: String,
   genre: String,
   tracks: [{
-      rank: Number,
-      name: String
-    },
-  ],
+    rank: Number,
+    name: String
+  }, ],
   format: String,
   cover: String
 });
 
-const Record = mongoose.model("Record", recordSchema);
-module.exports = {Record};
- 
+const Record = mongoose.model('Record', recordSchema);
+module.exports = {
+  Record
+};

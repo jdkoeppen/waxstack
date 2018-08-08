@@ -1,21 +1,19 @@
 const {
   Collection
-} = require("./models");
-const bodyParser = require("body-parser");
+} = require('./models');
+const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  return Collection.findOne({
-      userId: req.user.id
-    })
-    .populate("records")
-    .then(collection => {
-      res.json(collection);
-    })
-    .catch(err => res.status(400).send(err.message));
-});
+router.get('/', (req, res) => Collection.findOne({
+    userId: req.user.id
+  })
+  .populate('records')
+  .then((collection) => {
+    res.json(collection);
+  })
+  .catch((err) => res.status(400).send(err.message)));
 
 // router.get("/search", (req, res) => {
 //   return Record.find({'artist':req.query.artist})
@@ -37,7 +35,7 @@ router.get("/", (req, res) => {
 // });
 //if type
 
-router.put("/", jsonParser, (req, res) => {
+router.put('/', jsonParser, (req, res) => {
   Collection.findOneAndUpdate({
       userId: req.user.id
     }, {
@@ -57,7 +55,7 @@ router.put("/", jsonParser, (req, res) => {
     });
 });
 
-router.delete("/:albumId", (req, res) => {
+router.delete('/:albumId', (req, res) => {
   Collection.findOneAndUpdate({
       userId: req.user.id
     }, {
@@ -67,7 +65,7 @@ router.delete("/:albumId", (req, res) => {
     })
     .then(function () {
       res.json({
-        message: "Record Deleted"
+        message: 'Record Deleted'
       });
     })
     .catch(function (err) {

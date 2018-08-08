@@ -20,7 +20,7 @@ var userCollection;
 var currentCollection;
 var currentAlbumId;
 
-$("#collectionTable").tablesorter({
+$('#collectionTable').tablesorter({
   sortList: [
     [0, 0],
     [1, 0]
@@ -38,16 +38,16 @@ $("#collectionTable").tablesorter({
  */
 
 function watchSignupLink() {
-  $("#signupLink").click(function (event) {
+  $('#signupLink').click(function () {
     userCollection = null;
-    $("#loginCard").addClass("hidden");
-    $("#signupCard").removeClass("hidden");
+    $('#loginCard').addClass('hidden');
+    $('#signupCard').removeClass('hidden');
   });
 }
 
 function watchSignup() {
-  $("#signupForm").submit(function (event) {
-    let URL = "/api/users";
+  $('#signupForm').submit(function (event) {
+    let URL = '/api/users';
     event.preventDefault();
     let data = {};
     let input = $(this).serializeArray();
@@ -56,26 +56,26 @@ function watchSignup() {
         if (!data[this.name].push) {
           data[this.name] = [data[this.name]];
         }
-        data[this.name].push(this.value || "");
+        data[this.name].push(this.value || '');
       } else {
-        data[this.name] = this.value || "";
+        data[this.name] = this.value || '';
       }
     });
     console.log(data);
 
     $.ajax({
       url: URL,
-      type: "POST",
+      type: 'POST',
       data: JSON.stringify(data),
-      contentType: "application/json",
+      contentType: 'application/json',
       success: function (data) {
         signupConfirm();
-        console.log("success");
+        console.log('success');
       },
       error: function (jqXHR) {
         let responseMessage = jqXHR.responseJSON.message;
-        $("#signupMsg").html(`<p style="color:red">${responseMessage}</p>`);
-        console.log("status: " + jqXHR.status);
+        $('#signupMsg').html(`<p style="color:red">${responseMessage}</p>`);
+        console.log('status: ' + jqXHR.status);
         console.log(responseMessage);
       }
     });
@@ -83,14 +83,14 @@ function watchSignup() {
 }
 
 function signupConfirm() {
-  $("#signupCard").addClass("hidden");
-  $("#signupConf").removeClass("hidden");
+  $('#signupCard').addClass('hidden');
+  $('#signupConf').removeClass('hidden');
 }
 
 function watchSignupConfirm() {
-  $("#signupLogin").click(function (event) {
-    $("#loginCard").removeClass("hidden");
-    $("#signupConf").addClass("hidden");
+  $('#signupLogin').click(function (event) {
+    $('#loginCard').removeClass('hidden');
+    $('#signupConf').addClass('hidden');
   });
 }
 
@@ -105,36 +105,37 @@ function watchSignupConfirm() {
  */
 
 function watchLogin() {
-  $("#loginForm").submit(function (event) {
-    let URL = "/api/auth/login";
-    let userName = $("#loginUser").val();
-    let password = $("#loginPassword").val();
+  $('#loginForm').submit(function (event) {
+    let URL = '/api/auth/login';
+    let userName = $('#loginUser').val();
+    let password = $('#loginPassword').val();
     let data = {
       username: userName,
       password: password
     };
     event.preventDefault();
     $.ajax({
-      contentType: "application/json",
+      contentType: 'application/json',
       url: URL,
-      type: "POST",
+      type: 'POST',
       data: JSON.stringify(data),
       success: function (data) {
-        localStorage.setItem("authToken", data.authToken);
+        localStorage.setItem('authToken', data.authToken);
         currentUser = data.user;
         currentCollection = userCollection;
-        $("#loginCard").addClass("hidden");
-        $(".navbar").removeClass("hidden");
-        $("#logo").addClass("hidden");
-        $("#navMain").removeClass("hidden");
-        $("#collectionDiv").removeClass("hidden");
-        $("#collectionTable").removeClass("hidden");
+        $('#loginCard').addClass('hidden');
+        $('.navbar').removeClass('hidden');
+        $('#logo').addClass('hidden');
+        $('#navMain').removeClass('hidden');
+        $('#collectionDiv').removeClass('hidden');
+        $('#collectionTable').removeClass('hidden');
+
 
         cacheDatabase().then(getUserCol);
       },
       error: function (error) {
-        let responseMessage = "Incorrect username or password.";
-        $("#loginMsg").html(`<p style="color:red">${responseMessage}</p>`);
+        let responseMessage = 'Incorrect username or password.';
+        $('#loginMsg').html(`<p style="color:red">${responseMessage}</p>`);
         console.log(responseMessage);
       }
     });
@@ -152,16 +153,16 @@ function watchLogin() {
  */
 
 function watchLogout() {
-  $("#logout").on("click", function (event) {
-    localStorage.removeItem("TOKEN");
-    $("#loginCard").removeClass("hidden");
-    $(".navbar").addClass("hidden");
-    $("#logo").removeClass("hidden");
-    $("#navMain").addClass("hidden");
-    $("#collectionDiv").addClass("hidden");
-    $("#collectionTable").addClass("hidden");
-    userCollection = null
-    currentCollection = null
+  $('#logout').on('click', function (event) {
+    localStorage.removeItem('TOKEN');
+    $('#loginCard').removeClass('hidden');
+    $('.navbar').addClass('hidden');
+    $('#logo').removeClass('hidden');
+    $('#navMain').addClass('hidden');
+    $('#collectionDiv').addClass('hidden');
+    $('#collectionTable').addClass('hidden');
+    userCollection = null;
+    currentCollection = null;
   });
 }
 
@@ -176,15 +177,15 @@ function watchLogout() {
  */
 
 function getUserCol() {
-  let URL = "/api/collection";
-  let authToken = localStorage.getItem("authToken");
+  let URL = '/api/collection';
+  let authToken = localStorage.getItem('authToken');
   $.ajax({
     xhrFields: {
       withCredentials: true
     },
-    contentType: "application/json",
+    contentType: 'application/json',
     url: URL,
-    type: "GET",
+    type: 'GET',
     headers: {
       Authorization: `Bearer ${authToken}`
     },
@@ -194,7 +195,7 @@ function getUserCol() {
       renderCollection();
     },
     error: function () {
-      console.log("error");
+      console.log('error');
     }
   });
 }
@@ -214,16 +215,16 @@ function getUserCol() {
  */
 
 function cacheDatabase() {
-  let URL = "/api/records";
-  let authToken = localStorage.getItem("authToken");
+  let URL = '/api/records';
+  let authToken = localStorage.getItem('authToken');
 
   return $.ajax({
     xhrFields: {
       withCredentials: true
     },
-    contentType: "application/json",
+    contentType: 'application/json',
     url: URL,
-    type: "GET",
+    type: 'GET',
     headers: {
       Authorization: `Bearer ${authToken}`
     },
@@ -232,22 +233,22 @@ function cacheDatabase() {
       // renderCollection();
     },
     error: function () {
-      console.log("error");
+      console.log('error');
     }
   });
 }
 
 function cacheCollection() {
-  let URL = "/api/collection";
-  let authToken = localStorage.getItem("authToken");
+  let URL = '/api/collection';
+  let authToken = localStorage.getItem('authToken');
 
   return $.ajax({
     xhrFields: {
       withCredentials: true
     },
-    contentType: "application/json",
+    contentType: 'application/json',
     url: URL,
-    type: "GET",
+    type: 'GET',
     headers: {
       Authorization: `Bearer ${authToken}`
     },
@@ -256,7 +257,7 @@ function cacheCollection() {
       renderCollection();
     },
     error: function () {
-      console.log("error");
+      console.log('error');
     }
   });
 }
@@ -273,44 +274,49 @@ function cacheCollection() {
 
 function instructions() {
   if (userCollection.records.length === 0) {
-    $("#instructions").removeClass("hidden");
+    $('#instructions').removeClass('hidden');
   }
 }
 
+function refreshCol() {
+  return currentCollection === userCollection ? getUserCol() : renderCollection();
+}
+
 function globalCol() {
-  $("#globeCol").on("click", function (event) {
+  $('#globeCol').on('click', function (event) {
     event.preventDefault();
     currentCollection = globalCollection;
-    $(".tableContent").empty();
+    $('.tableContent').empty();
     renderCollection();
   });
 }
 
 function userCol() {
-  $("#myCol").on("click", function (event) {
+  $('#myCol').on('click', function (event) {
     event.preventDefault();
-    currentCollection = userCollection;
-    $(".tableContent").empty();
+    getUserCol();
+    $('.tableContent').empty();
     renderCollection();
-    $("#addChecked").hide()
+    $('#addChecked').hide();
+    $('td.checkable input[type="checkbox"]').hide();
   });
 }
 
 function renderCollection() {
-  $(".tableContent").empty();
+  $('.tableContent').empty();
   $.each(currentCollection.records, function (index, elem) {
-    $("tbody").append(
+    $('tbody').append(
       `<tr data-toggle='modal' data-target='#albumModal' data-idx='${index}' data-id='${
-        elem._id
-      }'><td class='checkable' ><input type='checkbox' role='checkbox' </td><td>${
-        elem.artist
-      }</td><td>${elem.album}</td><td>${elem.release}</td><td>${
-        elem.label
-      }</td><td>${elem.genre}</td><td>${elem.format}</td></tr>`
+				elem._id
+			}'><td class='checkable' ><input type='checkbox' role='checkbox' </td><td>${
+				elem.artist
+			}</td><td>${elem.album}</td><td>${elem.release}</td><td>${
+				elem.label
+			}</td><td>${elem.genre}</td><td>${elem.format}</td></tr>`
     );
   });
   instructions();
-  $("#collectionTable").trigger("update");
+  $('#collectionTable').trigger('update');
 }
 
 /***
@@ -324,17 +330,17 @@ function renderCollection() {
  */
 
 function watchCheck() {
-  $("table").on(
-    "click",
+  $('table').on(
+    'click',
     'td.checkable, td.checkable input[type="checkbox"]',
     function (event) {
       event.stopPropagation();
-      let box = $(this).find("input[type='checkbox']");
+      let box = $(this).find('input[type=\'checkbox\']');
       if (box.length) {
-        box.prop("checked", !box.prop("checked"));
+        box.prop('checked', !box.prop('checked'));
       }
       if (currentCollection === globalCollection) {
-        $("#addChecked").show();
+        $('#addChecked').show();
       }
     }
   );
@@ -361,56 +367,57 @@ function watchCheck() {
  *    ##     ## ########  ########
  */
 
+
 function watchAdd() {
-  $("#addChecked").on("click", function (event) {
+  $('#addChecked').on('click', function () {
     let recordIds = [];
     let selected = $('td.checkable input[type="checkbox"]:checked');
     if (!selected.length) {
       return $.growl({
-        location: "tc",
-        size: "large",
-        style: "warning",
-        title: "Nothing Selected",
-        message: "Please select at least one entry."
+        location: 'tc',
+        size: 'large',
+        style: 'warning',
+        title: 'Nothing Selected',
+        message: 'Please select at least one entry.'
       });
     }
     selected.each(function () {
       let rowId = $(this)
-        .closest("tr")
-        .attr("data-id");
+        .closest('tr')
+        .attr('data-id');
       recordIds.push(rowId);
     });
     console.log(recordIds);
 
-    let authToken = localStorage.getItem("authToken");
+    let authToken = localStorage.getItem('authToken');
 
     $.ajax({
-      url: `/api/collection/`,
+      url: '/api/collection/',
       xhrFields: {
         withCredentials: true
       },
-      type: "PUT",
+      type: 'PUT',
       data: JSON.stringify(recordIds),
-      contentType: "application/json",
+      contentType: 'application/json',
       headers: {
         Authorization: `Bearer ${authToken}`
       },
       success: function (collection) {
-        console.log("SUCCESS", collection);
+        console.log('SUCCESS', collection);
         $.growl({
-          location: "tc",
-          size: "large",
-          style: "notice",
-          title: "Records Added",
+          location: 'tc',
+          size: 'large',
+          style: 'notice',
+          title: 'Records Added',
           message: `${
-            recordIds.length
-          } Selections Added to Your Collection Successfully.`
+          recordIds.length
+        } Selections Added to Your Collection Successfully.`
         });
-        cacheCollection()
+        refreshCol();
 
       },
       error: function () {
-        console.log("error", recordIds);
+        console.log('error', recordIds);
       }
     });
   });
@@ -427,22 +434,23 @@ function watchAdd() {
  */
 
 function albumEditOn() {
-  $("#aModalEdit").addClass("hidden");
-  $("#aModalSave, #aModalCxl, #aModalDelete").removeClass("hidden");
-  $(".editable").each(function () {
+  $('#aModalEdit').addClass('hidden');
+  $('#aModalSave, #aModalCxl, #aModalDelete').removeClass('hidden');
+  $('.editable').each(function () {
     $(this)
-      .attr("readonly", false)
-      .addClass("inputEditing");
+      .attr('readonly', false)
+      .addClass('inputEditing');
   });
 }
 
 function albumEditOff() {
-  $(".editable").each(function () {
-    $(this).removeClass("inputEditing");
-    $(this).attr("readonly", true);
+  $('.editable').each(function () {
+    $(this).removeClass('inputEditing');
+    $(this).attr('readonly', true);
   });
-  $("#aModalEdit").removeClass("hidden");
-  $("#aModalSave, #aModalCxl, #aModalDelete").addClass("hidden");
+  $('#aModalEdit').removeClass('hidden');
+  $('#aModalSave, #aModalCxl, #aModalDelete').addClass('hidden');
+  refreshCol();
 }
 
 /***
@@ -456,51 +464,51 @@ function albumEditOff() {
  */
 
 function watchAlbumModal() {
-  $("#albumModal").on("show.bs.modal", function (event) {
+  $('#albumModal').on('show.bs.modal', function (event) {
     var selection = $(event.relatedTarget);
-    var x = selection.data("idx");
+    var x = selection.data('idx');
     var elem = currentCollection.records[x];
     currentAlbumId = elem._id;
-    var noCover = "assets/nocover.png";
+    var noCover = 'assets/nocover.png';
     var cover = elem.cover ? elem.cover : noCover;
     var modal = $(this);
-    modal.find("#aModalId").val(elem._id);
-    modal.find("#aModalImg").attr("src", cover);
-    modal.find("#aModalArtist").val(elem.artist);
-    modal.find("#aModalAlbum").val(elem.album);
-    modal.find("#aModalRel").val(elem.release);
-    modal.find("#aModalLab").val(elem.label);
-    modal.find("#aModalGen").val(elem.genre);
-    modal.find("#aModalForm").val(elem.format);
+    modal.find('#aModalId').val(elem._id);
+    modal.find('#aModalImg').attr('src', cover);
+    modal.find('#aModalArtist').val(elem.artist);
+    modal.find('#aModalAlbum').val(elem.album);
+    modal.find('#aModalRel').val(elem.release);
+    modal.find('#aModalLab').val(elem.label);
+    modal.find('#aModalGen').val(elem.genre);
+    modal.find('#aModalForm').val(elem.format);
     $.each(elem.tracks, function (idx, name) {
       modal
-        .find("#aModalTracks")
+        .find('#aModalTracks')
         .append(
           `<li><input type='text' readonly class='form-control-plaintext editable' value='${
-            name.name
-          }'</input></li>`
+						name.name
+					}'</input></li>`
         );
     });
   });
-  $("#albumModal").on("hidden.bs.modal", function (event) {
+  $('#albumModal').on('hidden.bs.modal', function (event) {
     albumEditOff();
     $(this)
-      .find("#aModalTracks")
+      .find('#aModalTracks')
       .empty();
-    $("#albumModal").modal("dispose");
-    $("#collectionTable").trigger("update");
+    $('#albumModal').modal('dispose');
+    $('#collectionTable').trigger('update');
   });
 }
 
 function watchAlbumEdit() {
-  $("#albumModal").on("click", "#aModalEdit", function (event) {
+  $('#albumModal').on('click', '#aModalEdit', function (event) {
     albumEditOn();
-    $("#albumModal").modal("handleUpdate");
+    $('#albumModal').modal('handleUpdate');
   });
 
-  $(this).on("click", "#aModalCxl", function (event) {
+  $(this).on('click', '#aModalCxl', function (event) {
     albumEditOff();
-    $("#albumModal").modal("handleUpdate");
+    $('#albumModal').modal('handleUpdate');
   });
 
   /***
@@ -513,54 +521,54 @@ function watchAlbumEdit() {
    *     ######  ##     ##    ###    ########
    */
 
-  $("#albumModal").on("click", "#aModalSave", function (event) {
+  $('#albumModal').on('click', '#aModalSave', function (event) {
     event.preventDefault();
     let data = {};
     let input = $(this)
-      .closest("form")
+      .closest('form')
       .serializeArray();
     $.each(input, function () {
       if (data[this.name]) {
         if (!data[this.name].push) {
           data[this.name] = [data[this.name]];
         }
-        data[this.name].push(this.value || "");
+        data[this.name].push(this.value || '');
       } else {
-        data[this.name] = this.value || "";
+        data[this.name] = this.value || '';
       }
     });
-    let authToken = localStorage.getItem("authToken");
+    let authToken = localStorage.getItem('authToken');
 
     $.ajax({
       url: `/api/records/${currentAlbumId}`,
       xhrFields: {
         withCredentials: true
       },
-      type: "PUT",
+      type: 'PUT',
       data: JSON.stringify(data),
-      contentType: "application/json",
+      contentType: 'application/json',
       headers: {
         Authorization: `Bearer ${authToken}`
       },
       success: function (data) {
-        console.log("SUCCESS", data);
+        console.log('SUCCESS', data);
         albumEditOff();
         $.growl({
-          location: "tc",
-          size: "large",
-          style: "notice",
-          title: "Saved",
-          message: "Updates Saved Successfully."
+          location: 'tc',
+          size: 'large',
+          style: 'notice',
+          title: 'Saved',
+          message: 'Updates Saved Successfully.'
         });
-        cacheDatabase()
+        cacheDatabase();
         cacheCollection()
           .then(renderCollection)
           .then(function () {
-            $("#collectionTable").trigger("update");
+            $('#collectionTable').trigger('update');
           });
       },
       error: function () {
-        console.log("error", data);
+        console.log('error', data);
       }
     });
   });
@@ -575,37 +583,57 @@ function watchAlbumEdit() {
    *    ########  ######## ######## ########    ##    ########
    */
 
-  $("#albumModal").on("click", "#aModalDelete", function (event) {
+  $('#albumModal').on('click', '#aModalDelete', function (event) {
     event.preventDefault();
-    let authToken = localStorage.getItem("authToken");
+    let authToken = localStorage.getItem('authToken');
+    $.when(
+        $.ajax({
+          url: `/api/collection/${currentAlbumId}`,
+          xhrFields: {
+            withCredentials: true
+          },
+          type: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          },
+          success: function () {
+            console.log('DELETED from Collection');
+          },
+          error: function () {
+            console.log('error');
+          }
+        }),
 
-    $.ajax({
-      url: `/api/collection/${currentAlbumId}`,
-      xhrFields: {
-        withCredentials: true
-      },
-      type: "DELETE",
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      },
-      success: function () {
-        console.log("DELETED");
+        $.ajax({
+          url: `/api/records/${currentAlbumId}`,
+          xhrFields: {
+            withCredentials: true
+          },
+          type: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          },
+          success: function () {
+            console.log('DELETED from Global');
+          },
+          error: function () {
+            console.log('error');
+          }
+        })
+      )
+      .then(function () {
         $.growl({
-          location: "tc",
-          size: "large",
-          style: "warning",
-          title: "Delete",
-          message: "Record Deleted Successfully."
+          location: 'tc',
+          size: 'large',
+          style: 'warning',
+          title: 'Delete',
+          message: 'Record Deleted Successfully.'
         });
         albumEditOff();
-        $("#albumModal").modal("hide");
-        cacheDatabase()
-        cacheCollection()
-      },
-      error: function () {
-        console.log("error");
-      }
-    });
+        $('#albumModal').modal('hide');
+        cacheDatabase();
+        refreshCol();
+      });
   });
 }
 
@@ -620,17 +648,17 @@ function watchAlbumEdit() {
  */
 
 function addTrack() {
-  $("#addTrack").on("click", function (event) {
-    var addTrack = $("#addTrack");
-    var wrap = $(".trackWrap");
-    var trackHtml = `<div class="trackRow input-group input-group-options col-xs-11"><input type="text" name="tracks" class="form-control" placeholder="Track"/><div class="input-group-append"><span class="input-group-text" id="deleteTrack"><i class="fas fa-times"></i></span></div></div>`;
+  $('#addTrack').on('click', function (event) {
+    // var addTrack = $('#addTrack');
+    var wrap = $('.trackWrap');
+    var trackHtml = '<div class="trackRow input-group input-group-options col-xs-11"><input type="text" name="tracks" class="form-control" placeholder="Track"/><div class="input-group-append"><span class="input-group-text" id="deleteTrack"><i class="fas fa-times"></i></span></div></div>';
     event.preventDefault;
     $(wrap).append(trackHtml);
   });
 
-  $(".trackWrap").on("click", ".input-group-append", function (event) {
+  $('.trackWrap').on('click', '.input-group-append', function () {
     $(this)
-      .parent("div")
+      .parent('div')
       .remove();
   });
 }
@@ -646,8 +674,8 @@ function addTrack() {
  */
 
 function recordSubmit() {
-  $("#addRecord").submit(function (event) {
-    let URL = "/api/collection";
+  $('#addRecord').submit(function (event) {
+    let URL = '/api/records';
     event.preventDefault();
     let data = {};
     let input = $(this).serializeArray();
@@ -656,9 +684,9 @@ function recordSubmit() {
         if (!data[this.name].push) {
           data[this.name] = [data[this.name]];
         }
-        data[this.name].push(this.value || "");
+        data[this.name].push(this.value || '');
       } else {
-        data[this.name] = this.value || "";
+        data[this.name] = this.value || '';
       }
     });
     data.tracks = data.tracks.map((name, rank) => ({
@@ -666,40 +694,66 @@ function recordSubmit() {
       rank: rank + 1
     }));
     console.log(data);
-    let authToken = localStorage.getItem("authToken");
-
-    $.ajax({
-      url: URL,
-      xhrFields: {
-        withCredentials: true
-      },
-      type: "POST",
-      data: JSON.stringify(data),
-      contentType: "application/json",
-      headers: {
-        Authorization: `Bearer ${authToken}`
-      },
-      success: function (data) {
-        console.log("success");
-        alert("Record Added");
-        $("#addRecordModal").modal("hide");
-        cacheDatabase().then(function () {
-          $("#collectionTable").trigger("update");
+    let authToken = localStorage.getItem('authToken');
+    $.when(
+        $.ajax({
+          url: URL,
+          xhrFields: {
+            withCredentials: true
+          },
+          type: 'POST',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          },
+          success: function () {
+            console.log('success');
+          },
+          error: function () {
+            console.log('error');
+          }
+        }),
+        // $.ajax({
+        //   url: '/api/collection/',
+        //   xhrFields: {
+        //     withCredentials: true
+        //   },
+        //   type: 'PUT',
+        //   data: JSON.stringify(recordIds),
+        //   contentType: 'application/json',
+        //   headers: {
+        //     Authorization: `Bearer ${authToken}`
+        //   },
+        //   success: function (collection) {
+        //     console.log('SUCCESS', collection);
+        //   },
+        //   error: function () {
+        //     console.log('error', recordIds);
+        //   }
+        // })
+      )
+      .then(function () {
+        $.growl({
+          location: 'tc',
+          size: 'large',
+          style: 'notice',
+          title: 'Added',
+          message: 'Album Added Successfully!'
         });
-      },
-      error: function () {
-        console.log("error");
-      }
-    });
+        $('#addRecordModal').modal('hide');
+        cacheDatabase();
+        refreshCol();
+      });
   });
 
-  $("#addRecordModal").on("hidden.bs.modal", function () {
-    $("#addRecord").each(function () {
+  $('#addRecordModal').on('hidden.bs.modal', function () {
+    $('#addRecord').each(function () {
       $(this)
-        .closest("form")
-        .find("input[type=text], textarea")
-        .val("");
-      $(".trackRow").empty();
+        .closest('form')
+        .find('input[type=text], textarea')
+        .val('');
+      $('.trackRow').empty();
     });
   });
 }
