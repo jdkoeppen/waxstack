@@ -161,6 +161,7 @@ function watchLogout() {
     $('#navMain').addClass('hidden');
     $('#collectionDiv').addClass('hidden');
     $('#collectionTable').addClass('hidden');
+    $('#instructions').addClass('hidden');
     userCollection = null;
     currentCollection = null;
   });
